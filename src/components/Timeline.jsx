@@ -1,7 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Timeline.css";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const events = [
   {
@@ -10,10 +14,10 @@ const events = [
     day: "27",
     year: "2026",
     iso: "2026-02-27",
+    kanji: "壱",
     title: "Registration Opens",
-    desc: "Google Form goes live at 10:00 AM. Assemble your team and lock in your slot — limited seats.",
-    time: "10:00 AM",
-    cta: null,
+    desc: "Application portal goes live. Assemble your fellowship of 3–5 builders and lock in your slot.",
+    time: "10:00 AM IST",
   },
   {
     step: 2,
@@ -21,10 +25,10 @@ const events = [
     day: "07",
     year: "2026",
     iso: "2026-03-07",
+    kanji: "弐",
     title: "Registration & Submission Deadline",
-    desc: "Hard deadline at 11:59 PM. Registrations are now closed.",
-    time: "11:59 PM",
-    cta: null,
+    desc: "Strict deadline at 11:59 PM. Portals close and judging of preliminary submissions begins.",
+    time: "11:59 PM IST",
   },
   {
     step: 3,
@@ -32,10 +36,10 @@ const events = [
     day: "08",
     year: "2026",
     iso: "2026-03-08",
+    kanji: "参",
     title: "Round 1 Shortlisting",
-    desc: "Selected teams notified by email. Check your inbox and confirm your spot.",
+    desc: "Selected teams notified via email dispatch. Check your inbox and prepare your battle strategy.",
     time: null,
-    cta: null,
   },
   {
     step: 4,
@@ -43,10 +47,10 @@ const events = [
     day: "11",
     year: "2026",
     iso: "2026-03-11",
-    title: "RSVP Deadline",
-    desc: "Shortlisted teams must confirm attendance. No RSVP — no entry.",
+    kanji: "四",
+    title: "RSVP Confirmation Deadline",
+    desc: "Shortlisted teams must lock in attendance confirmations. No RSVP — forfeiture of slot.",
     time: null,
-    cta: null,
   },
   {
     step: 5,
@@ -54,17 +58,16 @@ const events = [
     day: "14",
     year: "2026",
     iso: "2026-03-14",
+    kanji: "伍",
     title: "Offline Hackathon — Day 1",
-    desc: "The arena opens. 24 hours of building starts NOW.",
-    time: null,
-    cta: null,
+    desc: "The arena opens at IIIT Kottayam. 24 continuous hours of building commences.",
+    time: "01:30 PM Onwards",
     schedule: [
-      { time: "1:30 PM",  label: "Registration Starts" },
-      { time: "2:30 PM", label: "Registration Ends" },
-      { time: "2:30 PM", label: "Inauguration Ceremony" },
-      { time: "3:00 PM", label: "Hackathon Begins" },
-      { time: "7:30 PM - 8:30 PM",  label: "Dinner" },
-      { time: "9:00 PM",  label: "Judging Round 1" },
+      { time: "1:30 PM", label: "Check-in & Registration Starts" },
+      { time: "2:30 PM", label: "Registration Closes & Inauguration Ceremony" },
+      { time: "3:00 PM", label: "Hackathon Officially Begins (Hacking Commences)" },
+      { time: "7:30 PM – 8:30 PM", label: "Dinner & Refreshments" },
+      { time: "9:00 PM", label: "Mentorship & Judging Round 1" },
     ],
   },
   {
@@ -73,18 +76,18 @@ const events = [
     day: "15",
     year: "2026",
     iso: "2026-03-15",
+    kanji: "六",
     title: "Offline Hackathon — Day 2",
-    desc: "Final stretch. Submit, present, and claim your victory.",
-    time: null,
-    cta: null,
+    desc: "Final sprint. Polish, submit, pitch before the grand jury, and claim victory.",
+    time: "08:00 AM – 05:30 PM",
     schedule: [
-      { time: "8:00 AM - 9:00 AM",  label: "Breakfast" },
-      { time: "10:00 AM", label: "Round 2 Judging" },
-      { time: "12:30 PM- 1:30 PM", label: "Lunch" },
-      { time: "3:00 PM - 3 :15 PM",  label: "Product & PPT Submission" },
-      { time: "3:15 PM",  label: "Judging Starts(Top 5 Teams)" },
-      { time: "4:30 PM",  label: "Final Decision" },
-      { time: "5:00 PM - 5:30 PM",  label: "Closing Ceremony" },
+      { time: "8:00 AM – 9:00 AM", label: "Breakfast" },
+      { time: "10:00 AM", label: "Judging Round 2" },
+      { time: "12:30 PM – 1:30 PM", label: "Lunch" },
+      { time: "3:00 PM – 3:15 PM", label: "Final Code & PPT Submissions" },
+      { time: "3:15 PM", label: "Grand Stage Pitching (Top 5 Finalists)" },
+      { time: "4:30 PM", label: "Jury Deliberation & Final Decision" },
+      { time: "5:00 PM – 5:30 PM", label: "Closing Ceremony & Prize Distribution" },
     ],
   },
 ];
@@ -98,6 +101,8 @@ function getStatus(iso, now) {
 
 export default function Timeline() {
   const sectionRef = useRef(null);
+  const headerRef = useRef(null);
+  const stackRef = useRef(null);
 
   const enriched = useMemo(() => {
     const now = new Date();
@@ -111,88 +116,119 @@ export default function Timeline() {
   }, []);
 
   useEffect(() => {
-    const cards = sectionRef.current?.querySelectorAll(".tl-card");
-    if (!cards) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          entry.target.classList.toggle("tl-card--in", entry.isIntersecting);
+    if (!sectionRef.current) return;
+    const ctx = gsap.context(() => {
+      // Header
+      const headerEls = headerRef.current?.querySelectorAll(
+        ".section-header-tag, .section-heading-main, .section-subtitle-text"
+      );
+      if (headerEls?.length) {
+        gsap.set(headerEls, { y: 30, opacity: 0 });
+        ScrollTrigger.create({
+          trigger: headerRef.current,
+          start: "top 82%",
+          once: true,
+          onEnter: () =>
+            gsap.to(headerEls, {
+              y: 0,
+              opacity: 1,
+              duration: 0.9,
+              stagger: 0.12,
+              ease: "power2.out",
+            }),
         });
-      },
-      { threshold: 0.12 }
-    );
-    cards.forEach((c) => io.observe(c));
-    return () => io.disconnect();
+      }
+
+      // Timeline entries
+      const entries = stackRef.current?.querySelectorAll(".tl-entry");
+      if (entries?.length) {
+        entries.forEach((entry) => {
+          gsap.fromTo(
+            entry,
+            { opacity: 0, y: 35 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: entry,
+                start: "top 85%",
+                toggleActions: "play none none none",
+              },
+            }
+          );
+        });
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
     <section className="tl-section" id="timeline" ref={sectionRef}>
-      {/* Horizontal scan lines */}
-      <div className="tl-scanlines" aria-hidden="true" />
-
-      <div className="tl-wrap">
-
-        {/* ── Header ── */}
-        <div className="tl-header">
-          <span className="tl-eyebrow">WHEN ARE YOU SHIPPING</span>
-          <h2 className="tl-hdr-title">
-            <span className="tl-heading-slash">/</span>TIMELINE
-          </h2>
-          <p className="tl-hdr-sub">Every checkpoint counts. Miss one. Miss all.</p>
+      <div className="tl-container">
+        {/* Header */}
+        <div className="tl-header" ref={headerRef}>
+          <span className="section-header-tag">THE MASTER PLAN</span>
+          <h2 className="section-heading-main">TIMELINE</h2>
+          <p className="section-subtitle-text">
+            Every checkpoint counts. Mark the milestones on your path to victory.
+          </p>
         </div>
 
-        {/* ── Cards ── */}
-        <div className="tl-stack">
-          {enriched.map((e, i) => (
-            <article
+        {/* Vertical Scroll Timeline */}
+        <div className="tl-scroll-wrapper" ref={stackRef}>
+          <div className="tl-spine-line" aria-hidden="true" />
+
+          {enriched.map((e) => (
+            <div
               key={e.step}
-              className={`tl-card tl-card--${e.status}${e.isNext ? " tl-card--next" : ""}`}
-              style={{ "--i": i }}
+              className={`tl-entry tl-entry--${e.status} ${e.isNext ? "tl-entry--next" : ""}`}
             >
-              {/* Step counter */}
-              <div className="tl-step-col">
-                <span className="tl-step-num">0{e.step}</span>
-                <span className="tl-step-divider" aria-hidden="true" />
-              </div>
-
-              {/* Date block */}
-              <div className="tl-date-col">
-                <span className="tl-date-month">{e.month}</span>
-                <span className="tl-date-day">{e.day}</span>
-                <span className="tl-date-year">{e.year}</span>
-              </div>
-
-              {/* Main content */}
-              <div className="tl-content-col">
-                <div className="tl-status-row">
-                  {e.status === "past" && <span className="tl-badge tl-badge--done">COMPLETED</span>}
-                  {e.status === "future" && !e.isNext && <span className="tl-badge tl-badge--soon">UPCOMING</span>}
-                  {e.isNext && <span className="tl-badge tl-badge--next">▶ UP NEXT</span>}
-                  {e.status === "active" && <span className="tl-badge tl-badge--live">● LIVE NOW</span>}
-                  {e.time && <span className="tl-badge tl-badge--time">{e.time}</span>}
+              {/* Center Seal Marker */}
+              <div className="tl-marker-wrap">
+                <div className="tl-seal-marker">
+                  <span>{e.kanji}</span>
                 </div>
-                <h3 className="tl-title">{e.title}</h3>
+              </div>
+
+              {/* Plaque Card */}
+              <div className="tl-card asian-frame">
+                <div className="tl-card-top">
+                  <div className="tl-date-badge font-bebas">
+                    <span className="tl-month">{e.month}</span>
+                    <span className="tl-day">{e.day}</span>
+                    <span className="tl-year">{e.year}</span>
+                  </div>
+
+                  <div className="tl-status-badges">
+                    {e.status === "past" && <span className="tl-badge tl-badge--past font-bebas">COMPLETED</span>}
+                    {e.status === "active" && <span className="tl-badge tl-badge--live font-bebas">● LIVE TODAY</span>}
+                    {e.isNext && <span className="tl-badge tl-badge--next font-bebas">▶ UP NEXT</span>}
+                    {e.time && <span className="tl-badge tl-badge--time font-bebas">{e.time}</span>}
+                  </div>
+                </div>
+
+                <h3 className="tl-title font-cinzel">{e.title}</h3>
                 <p className="tl-desc">{e.desc}</p>
-                {e.schedule && (
-                  <ul className="tl-schedule">
-                    {e.schedule.map((s, si) => (
-                      <li key={si} className="tl-schedule-item">
-                        <span className="tl-schedule-time">{s.time}</span>
-                        <span className="tl-schedule-label">{s.label}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                {e.cta && <a href="https://docs.google.com/forms/d/e/1FAIpQLSc4frcVdElaOrQMDpq12-OkmvQPQo52Loqz14MZSTEeR09__Q/viewform" target="_blank" rel="noopener noreferrer" className="tl-cta">{e.cta}</a>}
-              </div>
 
-              {/* Pulsing ring on next event */}
-              {e.isNext && (
-                <div className="tl-next-ring" aria-hidden="true">
-                  <span /><span />
-                </div>
-              )}
-            </article>
+                {e.schedule && (
+                  <div className="tl-schedule-box">
+                    <span className="tl-schedule-heading font-bebas">DAILY ITINERARY</span>
+                    <ul className="tl-schedule-list">
+                      {e.schedule.map((item, idx) => (
+                        <li key={idx} className="tl-schedule-row">
+                          <span className="tl-schedule-time font-cinzel">{item.time}</span>
+                          <span className="tl-schedule-dot">✦</span>
+                          <span className="tl-schedule-label">{item.label}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
           ))}
         </div>
       </div>

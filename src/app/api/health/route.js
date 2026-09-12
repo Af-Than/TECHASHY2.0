@@ -1,7 +1,7 @@
 export async function GET() {
   return Response.json({ 
     status: 'ok',
-    message: 'Techashy API is running',
+    message: 'TEKASHI 2.0 API is running',
     timestamp: new Date().toISOString()
   });
 }

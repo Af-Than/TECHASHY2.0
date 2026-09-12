@@ -1,480 +1,263 @@
-/* ══════════════════════════════════════════════════════════
-   PRIZES  –  What You're Fighting For
-   Matches Tracks / About / Timeline design language
-══════════════════════════════════════════════════════════ */
-
 .pr-section {
   position: relative;
-  background: #050505;
-  padding: 120px 0 140px;
+  padding: 100px 20px;
+  background: radial-gradient(circle at 50% 50%, rgba(42, 10, 15, 0.45) 0%, #080404 80%);
   overflow: hidden;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-/* Diagonal stripe background — mirrors Tracks */
-.pr-bg {
-  position: absolute;
-  inset: 0;
-  background-image:
-    repeating-linear-gradient(
-      -55deg,
-      transparent,
-      transparent 38px,
-      rgba(220, 20, 60, 0.028) 38px,
-      rgba(220, 20, 60, 0.028) 40px
-    );
-  pointer-events: none;
 }
 
 .pr-container {
-  max-width: 1300px;
+  max-width: 1160px;
   margin: 0 auto;
-  padding: 0 40px;
-}
-
-/* ── Header ─────────────────────────────────────────────── */
-.pr-header {
-  margin-bottom: 80px;
-}
-
-.pr-eyebrow {
-  display: block;
-  font-size: 0.7rem;
-  letter-spacing: 0.35em;
-  color: #DC143C;
-  text-transform: uppercase;
-  margin-bottom: 16px;
-  font-family: 'Courier New', monospace;
-}
-
-.pr-heading {
-  font-family: 'Iceberg', sans-serif;
-  font-weight: normal;
-  font-size: clamp(3rem, 8vw, 6.5rem);
-  color: #fff;
-  letter-spacing: 0.1em;
-  line-height: 0.9;
-  margin: 0 0 24px;
-  text-shadow: 0 0 40px rgba(220, 20, 60, 0.25);
-}
-
-.pr-slash {
-  color: #DC143C;
-  margin-right: 4px;
-}
-
-.pr-sub {
-  font-family: 'Courier New', monospace;
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.42);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
   position: relative;
-  padding-left: 28px;
-  margin: 0;
+  z-index: 10;
 }
 
-.pr-sub::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 18px;
-  height: 2px;
-  background: #DC143C;
+.pr-header {
+  text-align: center;
+  margin-bottom: 60px;
 }
 
-/* ── Cards grid ─────────────────────────────────────────── */
-.pr-grid {
+.pr-podium-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 24px;
+  align-items: center;
   margin-bottom: 40px;
 }
 
-/* ── Individual card ────────────────────────────────────── */
 .pr-card {
   position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  padding: 40px 32px 36px;
-  background: rgba(255, 255, 255, 0.016);
-  overflow: hidden;
-  transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+  padding: 32px 26px;
+  border-radius: 12px;
+  background: rgba(22, 9, 12, 0.85);
+  border: 1px solid rgba(216, 185, 120, 0.25);
+  transition: all 0.35s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .pr-card:hover {
-  border-color: rgba(220, 20, 60, 0.28);
-  background: rgba(220, 20, 60, 0.03);
-  transform: translateY(-4px);
+  transform: translateY(-6px);
+  border-color: rgba(216, 185, 120, 0.6);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(158, 24, 37, 0.35);
 }
 
-/* Red top accent bar */
-.pr-card::before {
-  content: '';
+.pr-card--champion {
+  background: rgba(38, 12, 18, 0.95);
+  border: 1.5px solid rgba(216, 185, 120, 0.6);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.95), 0 0 35px rgba(216, 185, 120, 0.25);
+  transform: scale(1.04);
+  padding: 40px 28px;
+  z-index: 5;
+}
+
+.pr-card--champion:hover {
+  transform: scale(1.04) translateY(-6px);
+  border-color: rgba(216, 185, 120, 0.85);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95), 0 0 45px rgba(216, 185, 120, 0.4);
+}
+
+.pr-champion-badge {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: rgba(220, 20, 60, 0.25);
-  transition: background 0.3s;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #D8B978, #9E1825);
+  color: #080404;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  padding: 4px 16px;
+  border-radius: 9999px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  white-space: nowrap;
 }
 
-.pr-card:hover::before {
-  background: #DC143C;
-  box-shadow: 0 0 16px rgba(220, 20, 60, 0.6);
-}
-
-/* First-place card — extra emphasis */
-.pr-card--first {
-  border-color: rgba(220, 20, 60, 0.3);
-  background: rgba(220, 20, 60, 0.04);
-}
-
-.pr-card--first::before {
-  background: #DC143C;
-  box-shadow: 0 0 20px rgba(220, 20, 60, 0.7), 0 0 50px rgba(220, 20, 60, 0.2);
-}
-
-/* Scan-line overlay inside card */
-.pr-card__scan {
-  position: absolute;
-  inset: 0;
-  background-image: repeating-linear-gradient(
-    180deg,
-    transparent,
-    transparent 3px,
-    rgba(255, 255, 255, 0.008) 3px,
-    rgba(255, 255, 255, 0.008) 4px
-  );
-  pointer-events: none;
-}
-
-/* ── Card top row ───────────────────────────────────────── */
-.pr-card__top {
+.pr-card-top {
   display: flex;
   align-items: center;
-  gap: 14px;
-  margin-bottom: 28px;
+  justify-content: space-between;
+  margin-bottom: 8px;
 }
 
-.pr-card__rank {
-  font-family: 'Iceberg', sans-serif;
-  font-size: 0.78rem;
-  letter-spacing: 0.14em;
-  color: rgba(220, 20, 60, 0.45);
-  transition: color 0.3s;
+.pr-rank {
+  font-size: 15px;
+  font-weight: 700;
+  color: #D8B978;
 }
 
-.pr-card:hover .pr-card__rank,
-.pr-card--first .pr-card__rank {
-  color: #DC143C;
+.pr-place {
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  color: #9E1825;
 }
 
-.pr-card__label {
-  font-family: 'Courier New', monospace;
-  font-size: 0.58rem;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.28);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 3px 9px;
-  transition: border-color 0.3s, color 0.3s;
+.pr-label {
+  font-size: 20px;
+  font-weight: 700;
+  color: #FFF1D0;
+  margin-bottom: 12px;
+  letter-spacing: 0.04em;
 }
 
-.pr-card:hover .pr-card__label,
-.pr-card--first .pr-card__label {
-  color: rgba(220, 20, 60, 0.8);
-  border-color: rgba(220, 20, 60, 0.3);
+.pr-amount-box {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 16px;
 }
 
-/* ── Amount ─────────────────────────────────────────────── */
-.pr-card__amount {
-  font-family: 'Iceberg', sans-serif;
-  font-weight: normal;
-  font-size: clamp(2.4rem, 4.5vw, 3.5rem);
-  color: #ffffff;
-  letter-spacing: -0.01em;
+.pr-currency {
+  font-size: 22px;
+  color: #D8B978;
+  font-weight: 700;
+}
+
+.pr-amount {
+  font-size: clamp(32px, 4vw, 44px);
+  font-weight: 900;
+  color: #FFF1D0;
   line-height: 1;
-  margin-bottom: 28px;
-  transition: text-shadow 0.3s ease;
+  text-shadow: 0 0 16px rgba(216, 185, 120, 0.35);
 }
 
-.pr-card:hover .pr-card__amount,
-.pr-card--first .pr-card__amount {
-  text-shadow: 0 0 28px rgba(220, 20, 60, 0.45);
-}
-
-.pr-rupee {
-  font-family: 'Courier New', monospace;
-  font-size: 0.55em;
-  color: #DC143C;
-  vertical-align: super;
-  margin-right: 2px;
-}
-
-/* ── Divider ────────────────────────────────────────────── */
-.pr-card__divider {
-  width: 100%;
+.pr-divider {
   height: 1px;
-  background: rgba(255, 255, 255, 0.06);
-  margin-bottom: 22px;
+  background: linear-gradient(90deg, rgba(216, 185, 120, 0.35), transparent);
+  margin-bottom: 16px;
 }
 
-/* ── Perks list ─────────────────────────────────────────── */
-.pr-card__perks {
+.pr-perks-list {
   list-style: none;
-  margin: 0;
   padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
-.pr-card__perk {
+.pr-perk-item {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
-  font-family: 'Courier New', monospace;
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  color: rgba(255, 255, 255, 0.42);
-  line-height: 1.6;
-  text-transform: uppercase;
-  transition: color 0.3s;
+  gap: 8px;
+  font-size: 14px;
+  color: #D1C29E;
+  line-height: 1.5;
 }
 
-.pr-card:hover .pr-card__perk,
-.pr-card--first .pr-card__perk {
-  color: rgba(255, 255, 255, 0.65);
+.pr-perk-bullet {
+  color: #D8B978;
+  font-size: 10px;
+  margin-top: 4px;
 }
 
-.pr-perk-dot {
-  display: inline-block;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #DC143C;
-  flex-shrink: 0;
-  margin-top: 6px;
-  box-shadow: 0 0 6px rgba(220, 20, 60, 0.6);
-}
-
-/* ── Pulsing rings on first-place card ──────────────────── */
-.pr-card__glow-ring {
-  position: absolute;
-  bottom: 24px;
-  right: 24px;
-  width: 36px;
-  height: 36px;
-  pointer-events: none;
-}
-
-.pr-card__glow-ring span {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 1.5px solid rgba(220, 20, 60, 0.45);
-  animation: pr-ring 2.2s ease-out infinite;
-}
-
-.pr-card__glow-ring span:nth-child(2) {
-  animation-delay: 0.9s;
-}
-
-@keyframes pr-ring {
-  0%   { transform: scale(0.5); opacity: 0.8; }
-  100% { transform: scale(2);   opacity: 0; }
-}
-
-/* ── Special Award Card ─────────────────────────────────── */
-.pr-special-wrapper {
-  margin-bottom: 40px;
-  display: flex;
-  justify-content: center;
+/* Special Award */
+.pr-special-section {
+  margin-bottom: 30px;
 }
 
 .pr-special-card {
-  position: relative;
-  border: 1px solid rgba(255, 200, 50, 0.25);
-  padding: 40px 48px 36px;
-  background: rgba(255, 185, 0, 0.03);
-  overflow: hidden;
-  width: 100%;
-  max-width: 640px;
-  transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+  padding: 26px 30px;
+  border-radius: 12px;
+  background: rgba(26, 10, 14, 0.85);
+  border: 1px solid rgba(216, 185, 120, 0.3);
 }
 
-.pr-special-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: rgba(255, 185, 0, 0.6);
-  box-shadow: 0 0 20px rgba(255, 185, 0, 0.55), 0 0 50px rgba(255, 185, 0, 0.2);
-}
-
-.pr-special-card:hover {
-  border-color: rgba(255, 185, 0, 0.5);
-  background: rgba(255, 185, 0, 0.06);
-  transform: translateY(-4px);
-}
-
-.pr-special-card__top {
+.pr-special-top {
   display: flex;
   align-items: center;
-  margin-bottom: 14px;
+  justify-content: space-between;
+  margin-bottom: 12px;
 }
 
-.pr-special-card__badge {
-  font-family: 'Courier New', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: rgba(255, 185, 0, 0.85);
-  border: 1px solid rgba(255, 185, 0, 0.35);
-  padding: 3px 10px;
+.pr-special-badge {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: #9E1825;
 }
 
-.pr-special-card__title {
-  font-family: 'Iceberg', sans-serif;
-  font-size: clamp(1.2rem, 3vw, 1.9rem);
-  color: #ffffff;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  line-height: 1.2;
-  text-shadow: 0 0 28px rgba(255, 185, 0, 0.3);
-}
-
-.pr-special-card__amount {
-  font-family: 'Iceberg', sans-serif;
-  font-weight: normal;
-  font-size: clamp(2.4rem, 4.5vw, 3.5rem);
-  color: #ffffff;
-  letter-spacing: -0.01em;
-  line-height: 1;
-  margin-bottom: 28px;
-  text-shadow: 0 0 28px rgba(255, 185, 0, 0.5);
-}
-
-.pr-special-rupee {
-  font-family: 'Courier New', monospace;
-  font-size: 0.55em;
-  color: #FFB900;
-  vertical-align: super;
-  margin-right: 2px;
-}
-
-.pr-perk-dot--gold {
-  background: #FFB900;
-  box-shadow: 0 0 6px rgba(255, 185, 0, 0.7);
-}
-
-.pr-special-card__glow-ring {
-  position: absolute;
-  bottom: 24px;
-  right: 24px;
-  width: 36px;
-  height: 36px;
-  pointer-events: none;
-}
-
-.pr-special-card__glow-ring span {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 1.5px solid rgba(255, 185, 0, 0.5);
-  animation: pr-ring-gold 2.2s ease-out infinite;
-}
-
-.pr-special-card__glow-ring span:nth-child(2) {
-  animation-delay: 0.9s;
-}
-
-@keyframes pr-ring-gold {
-  0%   { transform: scale(0.5); opacity: 0.8; }
-  100% { transform: scale(2); opacity: 0; }
-}
-
-/* ── All-participants banner ────────────────────────────── */
-.pr-perks-banner {
+.pr-special-content {
   display: flex;
   align-items: center;
-  gap: 28px;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-left: 3px solid rgba(220, 20, 60, 0.5);
-  padding: 28px 36px;
-  background: rgba(255, 255, 255, 0.012);
-  transition: border-color 0.3s, background 0.3s;
+  justify-content: space-between;
+  gap: 24px;
 }
 
-.pr-perks-banner:hover {
-  border-color: rgba(220, 20, 60, 0.3);
-  background: rgba(220, 20, 60, 0.03);
+.pr-special-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #FFF1D0;
+  margin-bottom: 8px;
 }
 
-.pr-perks-icon {
-  font-size: 1.4rem;
-  color: #DC143C;
-  flex-shrink: 0;
-  text-shadow: 0 0 12px rgba(220, 20, 60, 0.7);
-}
-
-.pr-perks-body {
+.pr-special-perks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.pr-perks-title {
-  font-family: 'Courier New', monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.35em;
-  color: #DC143C;
-  text-transform: uppercase;
+.pr-special-perk-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  color: #D1C29E;
 }
 
-.pr-perks-text {
-  font-family: 'Courier New', monospace;
-  font-size: 0.82rem;
-  letter-spacing: 0.06em;
-  color: rgba(255, 255, 255, 0.48);
-  text-transform: uppercase;
-  line-height: 1.7;
+.pr-special-amount-box {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  white-space: nowrap;
 }
 
-/* ── Responsive ─────────────────────────────────────────── */
-@media (max-width: 960px) {
-  .pr-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .pr-card:first-child {
-    grid-column: 1 / -1;
-  }
+/* Certificate Banner */
+.pr-cert-banner {
+  padding: 22px 26px;
+  border-radius: 12px;
+  background: rgba(18, 7, 8, 0.8);
+  border: 1px solid rgba(216, 185, 120, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
-@media (max-width: 640px) {
-  .pr-grid {
+.pr-cert-icon {
+  font-size: 32px;
+  color: #9E1825;
+}
+
+.pr-cert-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #FFF1D0;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+
+.pr-cert-text {
+  font-size: 14px;
+  color: #D1C29E;
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .pr-podium-grid {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
-
-  .pr-card:first-child {
-    grid-column: auto;
+  .pr-card--champion {
+    transform: none;
+    order: -1;
   }
-
-  .pr-container {
-    padding: 0 24px;
+  .pr-card--champion:hover {
+    transform: translateY(-6px);
   }
-
-  .pr-perks-banner {
+  .pr-special-content {
     flex-direction: column;
     align-items: flex-start;
-    gap: 14px;
-    padding: 24px 22px;
   }
 }

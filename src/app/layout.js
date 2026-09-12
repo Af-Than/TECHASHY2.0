@@ -1,48 +1,41 @@
-import { Montserrat, Noto_Sans_JP, Six_Caps, Exo_2, Iceberg, Press_Start_2P } from "next/font/google";
+import { Cinzel, Cormorant_Garamond, Noto_Serif_JP, Bebas_Neue, Montserrat } from "next/font/google";
 import "./globals.css";
+
+const cinzel = Cinzel({
+  variable: "--font-cinzel",
+  subsets: ["latin"],
+  weight: ["400", "600", "700", "800", "900"],
+});
+
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
+const notoSerifJP = Noto_Serif_JP({
+  variable: "--font-noto-serif-jp",
+  subsets: ["latin"],
+  weight: ["400", "600", "700", "900"],
+});
+
+const bebasNeue = Bebas_Neue({
+  variable: "--font-bebas",
+  subsets: ["latin"],
+  weight: ["400"],
+});
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
-  weight: ["700", "800", "900"],
+  weight: ["400", "500", "600", "700"],
 });
-
-// Samurai-inspired Japanese font
-const notoSansJP = Noto_Sans_JP({
-  variable: "--font-samurai",
-  subsets: ["latin"],
-  weight: ["700", "900"],
-});
-//
-const sixCaps = Six_Caps({
-  variable: "--font-six-caps",
-  subsets: ["latin"],
-  weight: ["400"],
-});
-
-const exo2 = Exo_2({
-  variable: "--font-exo2",
-  subsets: ["latin"],
-  weight: ["400"],
-});
-////
-const iceberg = Iceberg({
-  variable: "--font-iceberg",
-  subsets: ["latin"],
-  weight: ["400"],
-});
-
-const pressStart = Press_Start_2P({
-  variable: "--font-pixel",
-  subsets: ["latin"],
-  weight: ["400"],
-});
-
 
 export const metadata = {
-  title: "Techashy - Premier Technology Hackathon",
-  description: "Join Techashy, a premier hackathon powered by Betalabs. Connect with innovators, build groundbreaking projects, and compete with the best minds in technology.",
-  keywords: ["Techashy", "Betalabs", "Hackathon", "Coding Competition", "Innovation", "Technology"],
+  metadataBase: new URL("https://tekashi.betalabs.tech"),
+  title: "TEKASHI 2.0 - Premier Technology Hackathon | Forged in 24 Hours",
+  description: "Join TEKASHI 2.0, a premier East-Asian inspired technology hackathon powered by Betalabs at IIIT Kottayam. 24 hours of relentless innovation, ₹80,808+ prize pool.",
+  keywords: ["TEKASHI 2.0", "Tekashi Hackathon", "Betalabs", "IIIT Kottayam", "Hackathon", "Coding Competition", "Innovation", "Technology"],
   authors: [{ name: "Betalabs" }],
   creator: "Betalabs",
   publisher: "Betalabs",
@@ -52,40 +45,30 @@ export const metadata = {
     apple: "/Techashi_Logo-removebg-preview.png",
   },
   openGraph: {
-    title: "Techashy - Premier Technology Hackathon",
-    description: "Join Techashy, a premier hackathon powered by Betalabs. Connect with innovators, build groundbreaking projects, and compete with the best minds in technology.",
-    siteName: 'Techashy',
+    title: "TEKASHI 2.0 - Premier Technology Hackathon",
+    description: "Join TEKASHI 2.0, a premier technology hackathon powered by Betalabs. 24 hours of relentless innovation, ₹80,808 in prizes.",
+    siteName: 'TEKASHI 2.0',
     locale: 'en_US',
     type: 'website',
-    images: [{ url: "/Techashi_Logo-removebg-preview.png", width: 800, height: 800, alt: "Techashy Logo" }],
+    images: [{ url: "/pictures/hero-mountains.jpg", width: 1200, height: 630, alt: "TEKASHI 2.0 Hackathon" }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Techashy - Premier Technology Hackathon",
-    description: "Join Techashy, a premier hackathon powered by Betalabs. Connect with innovators, build groundbreaking projects, and compete with the best minds in technology.",
-    images: ["/Techashi_Logo-removebg-preview.png"],
+    title: "TEKASHI 2.0 - Premier Technology Hackathon",
+    description: "Join TEKASHI 2.0 powered by Betalabs. Connect with innovators, build groundbreaking projects in 24 hours.",
+    images: ["/pictures/hero-mountains.jpg"],
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
   },
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preload" as="video" href="/Japan BG.mp4" type="video/mp4" />
-      </head>
+    <html lang="en" className="dark scroll-smooth">
       <body
-        className={`${montserrat.variable} ${notoSansJP.variable} ${sixCaps.variable} ${exo2.variable} ${iceberg.variable} ${pressStart.variable} antialiased font-bold`}
+        className={`${cinzel.variable} ${cormorant.variable} ${notoSerifJP.variable} ${bebasNeue.variable} ${montserrat.variable} antialiased bg-[#080404] text-[#EFE1BD]`}
         suppressHydrationWarning
       >
         {children}

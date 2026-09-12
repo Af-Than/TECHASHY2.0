@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -7,14 +8,38 @@ import "./FAQ.css";
 gsap.registerPlugin(ScrollTrigger);
 
 const faqs = [
-  { q: "What is Techashy?", a: "Techashy is a premier technology hackathon powered by Betalabs. It's an intensive event where innovators, developers, and creators come together to build groundbreaking projects." },
-  { q: "Who can participate?", a: "Students, professionals, and technology enthusiasts of all backgrounds are welcome. Teams of 3–5 members are recommended for collaborative innovation." },
-  { q: "Is there a registration fee?", a: "Absolutely none. Techashy is completely free to participate in — no registration fee, no hidden charges. Just bring your skills and ideas." },
-  { q: "When and where is Techashy?", a: "Techashy takes place on March 14–15, 2026 at the Indian Institute of Information Technology (IIIT), Kottayam, Kerala. Registration opens at 1:30 PM on March 14, followed by the inauguration ceremony at 2:30 PM and the hackathon kicking off at 3:00 PM. The event wraps up on March 15 with the closing ceremony from 5:00 PM – 5:30 PM." },
-  { q: "What can I build?", a: "Anything impactful—web apps, mobile applications, AI/ML solutions, hardware projects, or open-source tools. Specific tracks will be announced at the event." },
-  { q: "Are there prizes?", a: "Yes — ₹80,808 in total prizes. 1st place wins ₹40,404 plus an internship opportunity at a student-powered startup from IIIT Kottayam. 2nd place takes ₹20,202, and 3rd place wins ₹10,101. Every participant also receives an official Techashy certificate." },
-  { q: "What should I bring?", a: "Bring your laptop, chargers, valid ID, and your creativity. If your project involves hardware, make sure to bring all the equipment and components you need — we will not be providing any hardware. Plan ahead and pack everything required to bring your idea to life." },
-  { q: "Will food be provided?", a: "Yes, meals and refreshments will be provided throughout the event to keep you energized." },
+  {
+    q: "What is TEKASHI 2.0?",
+    a: "TEKASHI 2.0 is a premier national technology hackathon powered by Betalabs at IIIT Kottayam. It is a 24-hour intensive crucible where developers, designers, and innovators unite to engineer groundbreaking hardware and software solutions.",
+  },
+  {
+    q: "Who is eligible to participate?",
+    a: "Undergraduate and postgraduate students, developers, and tech enthusiasts from all disciplines across India are welcome. Teams of 3–5 members are recommended to foster cross-disciplinary synergy.",
+  },
+  {
+    q: "Is there any registration fee?",
+    a: "Zero. TEKASHI 2.0 is completely free of charge. No registration fees, no hidden costs. Just bring your passion, skills, and laptops.",
+  },
+  {
+    q: "When and where is TEKASHI 2.0 hosted?",
+    a: "TEKASHI 2.0 takes place on March 14–15, 2026, on the permanent campus of the Indian Institute of Information Technology (IIIT), Kottayam, Kerala. Check-in commences at 1:30 PM on March 14, and the hackathon wraps up with the grand award ceremony at 5:30 PM on March 15.",
+  },
+  {
+    q: "What categories and projects can we build?",
+    a: "Anything that moves humanity forward—AI & Machine Learning models, Web & Mobile applications, Climate/GreenTech systems, Smart Cities & IoT embedded devices, Blockchain security, or Civic tech platforms across our 7 official tracks.",
+  },
+  {
+    q: "What are the prizes and recognition?",
+    a: "A total cash prize pool of ₹80,808 is up for grabs! 1st Place wins ₹40,404 plus internship opportunities at student-founded startups from IIIT Kottayam, 2nd Place wins ₹20,202, 3rd Place wins ₹10,101, and the Special Agentic AI Award winner takes ₹10,101. Every submitting team receives an official TEKASHI 2.0 certificate of participation.",
+  },
+  {
+    q: "What should participants bring to the venue?",
+    a: "Bring your laptop, chargers, extension cords, valid college ID cards, and personal toiletries. If your project involves hardware or IoT sensors, please bring your own components and boards.",
+  },
+  {
+    q: "Will food, internet, and resting areas be provided?",
+    a: "Yes! High-speed network infrastructure, delicious meals, midnight snacks, and designated rest/recharge areas will be provided on-campus throughout the 24 hours.",
+  },
 ];
 
 export default function FAQ() {
@@ -27,29 +52,30 @@ export default function FAQ() {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Header — fade up
-      const headerEls = headerRef.current?.querySelectorAll(".faq-header-accent, .faq-title, .faq-subtitle");
+      // Header
+      const headerEls = headerRef.current?.querySelectorAll(
+        ".section-header-tag, .section-heading-main, .section-subtitle-text"
+      );
       if (headerEls?.length) {
-        gsap.set(headerEls, { y: 25, opacity: 0 });
+        gsap.set(headerEls, { y: 30, opacity: 0 });
         ScrollTrigger.create({
           trigger: headerRef.current,
           start: "top 82%",
           once: true,
           onEnter: () => {
             gsap.to(headerEls, {
-              y: 0, opacity: 1, duration: 0.9, stagger: 0.12, ease: "power2.out",
+              y: 0,
+              opacity: 1,
+              duration: 0.9,
+              stagger: 0.12,
+              ease: "power2.out",
             });
-            // Accent line
-            const accent = headerRef.current?.querySelector(".faq-header-accent");
-            if (accent) {
-              gsap.fromTo(accent, { width: 0 }, { width: 100, duration: 1, ease: "power2.out", delay: 0.2 });
-            }
           },
         });
       }
 
-      // Cards — staggered fade up
-      const cards = listRef.current?.querySelectorAll(".faq-card");
+      // FAQ Cards
+      const cards = listRef.current?.querySelectorAll(".faq-item");
       if (cards?.length) {
         gsap.set(cards, { y: 30, opacity: 0 });
         ScrollTrigger.create({
@@ -58,7 +84,11 @@ export default function FAQ() {
           once: true,
           onEnter: () => {
             gsap.to(cards, {
-              y: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: "power2.out",
+              y: 0,
+              opacity: 1,
+              duration: 0.75,
+              stagger: 0.08,
+              ease: "power2.out",
             });
           },
         });
@@ -70,49 +100,52 @@ export default function FAQ() {
 
   return (
     <section className="faq-section" id="faq" ref={sectionRef}>
-      <div className="faq-bg-glow"></div>
-      <div className="faq-grid-pattern"></div>
-      <div className="faq-particles">
-        {[...Array(20)].map((_, i) => (
-          <div key={i} className="faq-particle" style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 3}s`
-          }}></div>
-        ))}
-      </div>
-
       <div className="faq-container">
+        {/* Header */}
         <div className="faq-header" ref={headerRef}>
-          <div className="faq-header-accent"></div>
-          <h2 className="faq-title">FAQ</h2>
-          <p className="faq-subtitle">Everything you need to know</p>
+          <span className="section-header-tag">INQUIRIES & DIRECTIVES</span>
+          <h2 className="section-heading-main">FAQ</h2>
+          <p className="section-subtitle-text">
+            Everything you need to know before stepping into the arena.
+          </p>
         </div>
 
+        {/* Accordion List */}
         <div className="faq-list" ref={listRef}>
           {faqs.map((item, idx) => {
             const isOpen = open === idx;
             return (
               <div
                 key={idx}
-                className={`faq-card katana-shine katana-shine-crimson ${isOpen ? "faq-card--open" : ""}`}
+                className={`faq-item asian-frame ${isOpen ? "faq-item--open" : ""}`}
                 onClick={() => setOpen(isOpen ? -1 : idx)}
                 role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setOpen(isOpen ? -1 : idx);
+                  }
+                }}
                 aria-expanded={isOpen}
               >
-                <div className="faq-card__glow"></div>
-                <div className="faq-card__content">
-                  <div className="faq-card__top">
-                    <span className="faq-card__num">{String(idx + 1).padStart(2, "0")}</span>
-                    <h3 className="faq-card__q">{item.q}</h3>
-                    <div className={`faq-toggle ${isOpen ? "open" : ""}`} aria-hidden>
-                      <div className="faq-toggle__line"></div>
-                      <div className="faq-toggle__line"></div>
-                    </div>
+                <div className="faq-question-row">
+                  <span className="faq-num font-cinzel">{String(idx + 1).padStart(2, "0")}</span>
+                  <h3 className="faq-q-text font-cinzel">{item.q}</h3>
+                  <div className={`faq-icon ${isOpen ? "open" : ""}`} aria-hidden="true">
+                    <span>{isOpen ? "−" : "+"}</span>
                   </div>
-                  <div className="faq-card__a" style={{ maxHeight: isOpen ? '400px' : '0' }}>
-                    <p>{item.a}</p>
-                  </div>
+                </div>
+
+                <div
+                  className="faq-answer-wrap"
+                  style={{
+                    maxHeight: isOpen ? "300px" : "0px",
+                    opacity: isOpen ? 1 : 0,
+                  }}
+                >
+                  <div className="faq-gold-line" />
+                  <p className="faq-a-text">{item.a}</p>
                 </div>
               </div>
             );

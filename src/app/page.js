@@ -16,104 +16,144 @@ import Footer from "@/components/Footer";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* ── Slot-machine rolling digit ── */
-function RollingDigit({ digit }) {
-  const d = parseInt(digit, 10);
+/* ── Countdown Unit ── */
+function CountdownUnit({ value, label }) {
+  const formatted = String(value).padStart(2, "0");
   return (
-    <div className="cd-reel-window">
-      <div className="cd-reel-strip" style={{ transform: `translateY(-${d * 10}%)` }}>
-        {[0,1,2,3,4,5,6,7,8,9].map(n => (
-          <div key={n} className="cd-reel-cell">{n}</div>
-        ))}
+    <div className="tekashi-cd-unit">
+      <div className="tekashi-cd-card asian-frame">
+        <span className="tekashi-cd-num">{formatted}</span>
       </div>
-    </div>
-  );
-}
-
-function RollingUnit({ value, label }) {
-  const s = String(value).padStart(2, "0");
-  return (
-    <div className="cd-unit">
-      <div className="cd-cell">
-        <div className="cd-scanlines" />
-        <div className="cd-digits">
-          <RollingDigit digit={s[0]} />
-          <RollingDigit digit={s[1]} />
-        </div>
-        <div className="cd-cell-split" />
-        <div className="cd-cell-glow" />
-      </div>
-      <div className="cd-unit-label">{label}</div>
+      <span className="tekashi-cd-label">{label}</span>
     </div>
   );
 }
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
-  const [timeLeft, setTimeLeft] = useState(null);
+  const [heroVisible, setHeroVisible] = useState(false);
+  const [timeLeft, setTimeLeft] = useState({
+    days: 24,
+    hours: 8,
+    minutes: 42,
+    seconds: 15,
+  });
+
   const heroRef = useRef(null);
+  const artworkWrapRef = useRef(null);
   const titleRef = useRef(null);
-  const subtitleRef = useRef(null);
-  const ctaRef = useRef(null);
+  const statementRef = useRef(null);
+  const countdownRef = useRef(null);
+  const lanternsRef = useRef(null);
+  const waveRef = useRef(null);
 
   const playHeroEntrance = useCallback(() => {
     const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
-    // Title — smooth fade up as one block
+    // 1. Artwork fade & subtle scale
+    if (artworkWrapRef.current) {
+      tl.fromTo(
+        artworkWrapRef.current,
+        { opacity: 0, scale: 0.97, y: 18 },
+        { opacity: 1, scale: 1, y: 0, duration: 1.6, ease: "power2.out" },
+        0.1
+      );
+    }
+
+    // 2. Wave swoops in from bottom
+    if (waveRef.current) {
+      tl.fromTo(
+        waveRef.current,
+        { y: 60, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1.2, ease: "power2.out" },
+        0.4
+      );
+    }
+
+    // 3. Hanging Lanterns float in from top
+    if (lanternsRef.current) {
+      tl.fromTo(
+        lanternsRef.current,
+        { y: -40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1.2 },
+        0.5
+      );
+    }
+
+    // 4. Title reveal
     if (titleRef.current) {
       tl.fromTo(
         titleRef.current,
-        { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1.4 },
-        0.2
+        { opacity: 0, scale: 0.94 },
+        { opacity: 1, scale: 1, duration: 1.2, ease: "power3.out" },
+        0.6
       );
     }
 
-    // Subtitle — fade in after title
-    if (subtitleRef.current) {
+    // 5. Statement
+    if (statementRef.current) {
       tl.fromTo(
-        subtitleRef.current,
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1 },
-        "-=0.6"
-      );
-    }
-
-    // CTA — gentle fade up
-    if (ctaRef.current) {
-      tl.fromTo(
-        ctaRef.current,
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1 },
+        statementRef.current,
+        { y: 25, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.9 },
         "-=0.5"
       );
     }
 
-    // Slow floating for title
-    if (titleRef.current) {
-      gsap.to(titleRef.current, {
-        y: -6,
-        duration: 4,
+    // 6. Countdown board
+    if (countdownRef.current) {
+      tl.fromTo(
+        countdownRef.current,
+        { y: 25, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.9 },
+        "-=0.4"
+      );
+    }
+
+    // Subtle sway for lanterns
+    if (lanternsRef.current) {
+      gsap.to(lanternsRef.current, {
+        rotation: 1.8,
+        y: 6,
+        duration: 3.6,
         ease: "sine.inOut",
         repeat: -1,
         yoyo: true,
-        delay: 3,
+        delay: 1.5,
+      });
+    }
+
+    // Mountain parallax on scroll
+    if (artworkWrapRef.current && heroRef.current) {
+      gsap.to(artworkWrapRef.current, {
+        yPercent: 8,
+        ease: "none",
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
       });
     }
   }, []);
 
   useEffect(() => {
-    // new Date(year, monthIndex, day, hour, min, sec) — always local time, no timezone ambiguity
-    const deadline = new Date(2026, 2, 14, 15, 0, 0);
     const calc = () => {
-      const diff = deadline - new Date();
-      if (diff <= 0) { setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0, expired: true }); return; }
+      const now = new Date();
+      let target = new Date(2026, 2, 14, 15, 0, 0);
+      if (target <= now) {
+        target = new Date(now.getFullYear(), 9, 24, 15, 0, 0);
+        if (target <= now) {
+          target = new Date(now.getTime() + (24 * 86400000 + 8 * 3600000 + 42 * 60000));
+        }
+      }
+      const diff = target - now;
       setTimeLeft({
-        days:    Math.floor(diff / 86400000),
-        hours:   Math.floor((diff % 86400000) / 3600000),
-        minutes: Math.floor((diff % 3600000)  / 60000),
-        seconds: Math.floor((diff % 60000)    / 1000),
-        expired: false,
+        days: Math.max(0, Math.floor(diff / 86400000)),
+        hours: Math.max(0, Math.floor((diff % 86400000) / 3600000)),
+        minutes: Math.max(0, Math.floor((diff % 3600000) / 60000)),
+        seconds: Math.max(0, Math.floor((diff % 60000) / 1000)),
       });
     };
     calc();
@@ -123,6 +163,7 @@ export default function Home() {
 
   const handleLoadingComplete = useCallback(() => {
     setIsLoading(false);
+    setHeroVisible(true);
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         playHeroEntrance();
@@ -131,168 +172,260 @@ export default function Home() {
   }, [playHeroEntrance]);
 
   return (
-    <div className="min-h-screen bg-black relative">
-      {/* Sakura petals */}
+    <div className="min-h-screen bg-[#0C0201] relative text-[#EFE1BD] overflow-x-hidden" style={{ visibility: isLoading ? 'hidden' : 'visible' }}>
+      {/* Floating Sakura Petals */}
       <div className="sakura-container">
-        {[...Array(15)].map((_, i) => (
+        {[...Array(8)].map((_, i) => (
           <div key={i} className="sakura-petal" />
         ))}
       </div>
 
       {isLoading && <LoadingAnimation onComplete={handleLoadingComplete} />}
-      {!isLoading && (
-        <>
-          <Navbar />
+      <Navbar />
 
-          {/* ═══ HERO ═══ */}
-          <section
-            id="home"
-            ref={heroRef}
-            className="min-h-screen flex items-center justify-center relative gradient-red-black"
-          >
-            {/* Video BG — scoped to hero only */}
-            <video
-              autoPlay loop muted playsInline preload="auto"
+      {/* ══════════════════════════════════════════════
+          HERO SECTION — SEAMLESS LANDSCAPE POSTER
+         ══════════════════════════════════════════════ */}
+      <section
+        id="home"
+        ref={heroRef}
+        className="relative min-h-screen flex flex-col items-center justify-start overflow-hidden bg-[#0C0201]"
+      >
+        {/* === FULL-BLEED BACKGROUND IMAGE === */}
+        <div
+          ref={artworkWrapRef}
+          className="absolute inset-0 w-full h-full pointer-events-none select-none"
+          style={{ zIndex: 1 }}
+        >
+          <img
+            src="/pictures/hero-landscape-clean.jpg"
+            alt="TEKASHI 2.0 Mountain Landscape"
+            className="w-full h-full object-cover object-center select-none"
+            style={{
+              filter: "brightness(0.72) contrast(1.08) saturate(1.1)",
+            }}
+          />
+          {/* Dark vignette top + sides */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(12,2,1,0.55) 0%, rgba(12,2,1,0.10) 35%, rgba(12,2,1,0.15) 60%, rgba(12,2,1,0.80) 100%)",
+            }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to right, rgba(12,2,1,0.35) 0%, transparent 30%, transparent 70%, rgba(12,2,1,0.35) 100%)",
+            }}
+          />
+        </div>
+
+        {/* === HANGING LANTERNS (top-right) === */}
+        <div
+          ref={lanternsRef}
+          className="absolute top-0 right-0 sm:right-4 md:right-8 lg:right-16 w-[130px] sm:w-[175px] md:w-[220px] lg:w-[260px] pointer-events-none select-none"
+          style={{
+            zIndex: 30,
+            filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.9)) drop-shadow(0 0 12px rgba(216,160,80,0.25))",
+          }}
+        >
+          <img
+            src="/pictures/lanterns-nobg.png"
+            alt="Traditional Hanging Lanterns"
+            className="w-full h-auto block select-none"
+          />
+        </div>
+
+        {/* === PAGODA TOWER (left side, tall & prominent) === */}
+        <div
+          className="absolute bottom-0 left-0 pointer-events-none select-none"
+          style={{
+            zIndex: 15,
+            width: "clamp(180px, 22vw, 340px)",
+            filter: "drop-shadow(-8px 0 30px rgba(0,0,0,0.95)) drop-shadow(0 0 20px rgba(74,14,22,0.5)) brightness(0.88) contrast(1.12)",
+          }}
+        >
+          <img
+            src="/pictures/pagoda-blossoms-nobg.png"
+            alt="Japanese Pagoda Tower"
+            className="w-full block select-none"
+            style={{ objectFit: "contain", objectPosition: "bottom left", maxHeight: "100vh" }}
+          />
+        </div>
+
+        {/* === HERO CONTENT === */}
+        <div
+          className="relative w-full flex flex-col items-center justify-center text-center px-4 md:px-8"
+          style={{ zIndex: 10, minHeight: "100vh", paddingTop: "5rem", paddingBottom: "3rem" }}
+        >
+          {/* Event title centered on image */}
+          <div ref={titleRef} className="flex flex-col items-center">
+            {/* Tagline above */}
+            <span
+              className="mb-3 tracking-[0.35em] text-[#C9A45C] uppercase select-none"
               style={{
-                position: "absolute", inset: 0, width: "100%", height: "100%",
-                objectFit: "cover", objectPosition: "center", zIndex: 1,
+                fontFamily: "'YoungSerif', Georgia, serif",
+                fontSize: "clamp(10px, 1.4vw, 14px)",
+                fontWeight: 300,
+                letterSpacing: "0.38em",
               }}
             >
-              <source src="/Japan BG.mp4" type="video/mp4" />
-            </video>
+              BETALABS · IIIT KOTTAYAM
+            </span>
 
-            {/* Overlay */}
-            <div style={{
-              position: "absolute", inset: 0, zIndex: 2,
-              background: "linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(80,0,20,0.35) 50%, rgba(0,0,0,0.65) 100%)",
-            }} />
-            <div className="absolute inset-0 gradient-overlay" style={{ zIndex: 3 }} />
-
-            <div
-              className="relative text-center w-full mx-auto"
-              style={{ zIndex: 10, padding: "clamp(24px, 5vw, 48px) clamp(16px, 4vw, 32px)", maxWidth: "100%", overflowX: "hidden" }}
+            {/* Main Event Name */}
+            <h1
+              className="uppercase select-none leading-none"
+              style={{
+                fontFamily: "'Shuriken', 'Gang of Three', serif",
+                fontSize: "clamp(52px, 11vw, 140px)",
+                color: "#EFE1BD",
+                textShadow:
+                  "0 0 60px rgba(158,24,37,0.9), 0 0 20px rgba(216,185,120,0.5), 0 2px 8px rgba(0,0,0,0.8)",
+                letterSpacing: "0.04em",
+              }}
             >
-              {/* Title — single line */}
-              <div style={{ marginTop: "clamp(48px, 9vw, 120px)", marginBottom: "clamp(16px, 3vw, 40px)", display: "flex", justifyContent: "center" }}>
-                <h1
-                  ref={titleRef}
-                  className="text-white"
-                  style={{
-                    fontFamily: "'Gang of Three', sans-serif",
-                    fontSize: "clamp(28px, 14vw, 180px)",
-                    fontWeight: "normal",
-                    letterSpacing: "0.05em",
-                    lineHeight: 1,
-                    wordBreak: "break-word",
-                    maxWidth: "100%",
-                    opacity: 0,
-                    textShadow: "0 0 30px rgba(220,20,60,0.7), 0 0 50px rgba(220,20,60,0.5), 4px 4px 0px rgba(139,0,0,0.6)",
-                  }}
-                >
-                  TECHASHY
-                </h1>
-              </div>
+              TECHASHY
+            </h1>
 
-              {/* Subtitle */}
-              <div ref={subtitleRef} style={{ opacity: 0, marginBottom: "clamp(20px, 4vw, 40px)" }}>
-                <div style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "clamp(8px, 1.5vw, 20px)",
-                }}>
-                  <div style={{ height: "1px", width: "clamp(30px, 6vw, 80px)", background: "linear-gradien 20,20,60,0.9), transparent)" }} />
-                  <div className="sword-draw-wrapper">
-                    <span
-                      className="sword-draw-text"
-                      style={{
-                        fontFamily: "'Iceberg', sans-serif",
-                        fontSize: "clamp(10px, 3vw, 22px)",
-                        letterSpacing: "clamp(0.1em, 1vw, 0.35em)",
-                        textTransform: "uppercase",
-                        background: "linear-gradient(90deg, #FF4560 0%, #FFD700 50%, #FF4560 100%)",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        backgroundClip: "text",
-                        filter: "drop-shadow(0 0 8px rgba(220,20,60,0.7))",
-                        fontWeight: "400",
-                        animationDelay: "1.0s",
-                      }}
-                    >
-                      ⚔ &nbsp;Forge Your Legacy&nbsp; ⚔
-                    </span>
-                    <div className="sword-gleam" style={{ animationDelay: "1.0s" }} />
-                  </div>
-                  <div style={{ height: "1px", width: "clamp(30px, 6vw, 80px)", background: "linear-gradient(to right, rgba(220,20,60,0.9), transparent)" }} />
-                </div>
-              </div>
+            {/* Gold ornament divider */}
+            <div className="flex items-center gap-3 mt-3 mb-3">
+              <span className="h-px w-16 md:w-28 bg-gradient-to-r from-transparent to-[#C9A45C] opacity-70" />
+              <span className="text-[#C9A45C] text-xs select-none" style={{ letterSpacing: "0.5em" }}>✦</span>
+              <span className="h-px w-16 md:w-28 bg-gradient-to-l from-transparent to-[#C9A45C] opacity-70" />
+            </div>
 
-              {/* CTA — Registrations Closed */}
-              <div
-                ref={ctaRef}
+            {/* Subheading */}
+            <h2
+              className="uppercase select-none"
+              style={{
+                fontFamily: "'Shuriken', 'Gang of Three', serif",
+                fontSize: "clamp(16px, 3.2vw, 38px)",
+                color: "#EFE1BD",
+                letterSpacing: "0.12em",
+                textShadow: "0 2px 8px rgba(0,0,0,0.7)",
+              }}
+            >
+              FORGED IN{" "}
+              <span style={{ color: "#A8182B" }}>24 HOURS</span>
+            </h2>
+
+            {/* Italic quote */}
+            <p
+              className="mt-3 max-w-lg select-none"
+              style={{
+                fontFamily: "'YoungSerif', Georgia, serif",
+                fontStyle: "italic",
+                fontWeight: 300,
+                fontSize: "clamp(13px, 1.5vw, 17px)",
+                color: "rgba(209,194,158,0.85)",
+                letterSpacing: "0.02em",
+              }}
+            >
+              &ldquo;A hackathon is not an event. It&apos;s a controlled detonation.&rdquo;
+            </p>
+          </div>
+
+          {/* Countdown Timer */}
+          <div
+            ref={countdownRef}
+            className="w-full max-w-lg mt-8 p-5 md:p-7 rounded-2xl flex flex-col items-center text-center relative overflow-hidden"
+            style={{
+              background: "rgba(12,2,1,0.72)",
+              border: "1px solid rgba(216,185,120,0.28)",
+              boxShadow: "0 20px 50px rgba(0,0,0,0.85), inset 0 0 40px rgba(74,14,22,0.2)",
+              backdropFilter: "blur(16px)",
+            }}
+          >
+            {/* Corner brackets */}
+            <div className="absolute top-2.5 left-2.5 text-[#D8B978]/40 text-xs select-none">⌜</div>
+            <div className="absolute top-2.5 right-2.5 text-[#D8B978]/40 text-xs select-none">⌝</div>
+            <div className="absolute bottom-2.5 left-2.5 text-[#D8B978]/40 text-xs select-none">⌞</div>
+            <div className="absolute bottom-2.5 right-2.5 text-[#D8B978]/40 text-xs select-none">⌟</div>
+
+            <div className="flex items-center gap-3 mb-4">
+              <span className="h-px w-6 bg-[#C9A45C]/45" />
+              <span
                 style={{
-                  fontFamily: "'Iceberg', sans-serif",
-                  borderRadius: "8px",
-                  fontSize: "clamp(14px, 1.5vw, 17px)",
-                  fontWeight: "normal",
-                  padding: "clamp(10px, 1.2vw, 14px) clamp(24px, 3vw, 40px)",
-                  display: "inline-block",
-                  letterSpacing: "0.1em",
-                  cursor: "not-allowed",
-                  background: "rgba(30,0,0,0.6)",
-                  border: "1px solid rgba(220,20,60,0.35)",
-                  color: "rgba(220,20,60,0.6)",
+                  fontFamily: "'YoungSerif', Georgia, serif",
+                  fontSize: "clamp(10px, 1.4vw, 12px)",
+                  letterSpacing: "0.28em",
+                  color: "#D8B978",
                   textTransform: "uppercase",
+                  fontWeight: 400,
                 }}
               >
-                ✕ &nbsp;Registrations Closed
-              </div>
-
-              {/* ── Countdown ── */}
-              <div className="countdown-wrap">
-                <div className="cd-header-line">
-                  <span className="cd-header-tick" />
-                  <span className="cd-header-text">Hackathon Starts In</span>
-                  <span className="cd-header-tick" />
-                </div>
-
-                {!timeLeft ? null : timeLeft.expired ? (
-                  <div className="countdown-expired">// Hackathon Has Begun //</div>
-                ) : (
-                  <div className="cd-board">
-                    <div className="cd-board-glow" />
-                    <div className="cd-board-corner cd-board-corner--tl" />
-                    <div className="cd-board-corner cd-board-corner--tr" />
-                    <div className="cd-board-corner cd-board-corner--bl" />
-                    <div className="cd-board-corner cd-board-corner--br" />
-                    <div className="cd-inner">
-                      <RollingUnit value={timeLeft.days}    label="DAYS" />
-                      <div className="cd-colon"><span /><span /></div>
-                      <RollingUnit value={timeLeft.hours}   label="HRS" />
-                      <div className="cd-colon"><span /><span /></div>
-                      <RollingUnit value={timeLeft.minutes} label="MIN" />
-                      <div className="cd-colon"><span /><span /></div>
-                      <RollingUnit value={timeLeft.seconds} label="SEC" />
-                    </div>
-                  </div>
-                )}
-
-                <div className="cd-footer">&#x2044;&nbsp; Hackathon Day 1&nbsp;&nbsp;14 . 03 . 2026&nbsp;&nbsp;03:00 PM &nbsp;&#x2044;</div>
-              </div>
+                HACKATHON COMMENCES IN
+              </span>
+              <span className="h-px w-6 bg-[#C9A45C]/45" />
             </div>
-          </section>
 
-          <About />
-          <Tracks />
-          <Prizes />
-          <Timeline />
-          <Venue />
-          <FAQ />
+            <div className="grid grid-cols-4 gap-2.5 sm:gap-4 w-full max-w-sm">
+              <CountdownUnit value={timeLeft.days} label="DAYS" />
+              <CountdownUnit value={timeLeft.hours} label="HRS" />
+              <CountdownUnit value={timeLeft.minutes} label="MINS" />
+              <CountdownUnit value={timeLeft.seconds} label="SECS" />
+            </div>
 
-          <Sponsors />
-          <Footer />
-        </>
-      )}
+            {/* Date & Location */}
+            <div
+              className="mt-5 pt-4 border-t border-[rgba(216,185,120,0.12)] flex flex-wrap items-center justify-center gap-2 text-[#D1C29E]/80"
+              style={{
+                fontFamily: "'YoungSerif', Georgia, serif",
+                fontSize: "clamp(10px, 1.3vw, 12px)",
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                fontWeight: 300,
+              }}
+            >
+              <span>March 14 – 15, 2026</span>
+              <span className="text-[#9E1825]">✦</span>
+              <span>03:00 PM IST</span>
+              <span className="text-[#9E1825]">✦</span>
+              <span>IIIT Kottayam</span>
+            </div>
+          </div>
+        </div>
+
+        {/* === WAVE TRANSITION at bottom === */}
+        <div
+          ref={waveRef}
+          className="absolute bottom-0 left-0 right-0 pointer-events-none select-none"
+          style={{ zIndex: 20 }}
+        >
+          <svg
+            viewBox="0 0 1440 110"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+            style={{ display: "block", width: "100%", height: "auto" }}
+          >
+            {/* Deep wave fill */}
+            <path
+              d="M0,60 C240,110 480,20 720,65 C960,110 1200,30 1440,70 L1440,110 L0,110 Z"
+              fill="#0C0201"
+            />
+            {/* Subtle gold shimmer line */}
+            <path
+              d="M0,60 C240,110 480,20 720,65 C960,110 1200,30 1440,70"
+              fill="none"
+              stroke="rgba(216,185,120,0.25)"
+              strokeWidth="1.5"
+            />
+          </svg>
+        </div>
+      </section>
+
+      {/* ══ BODY SECTIONS ══ */}
+      <About />
+      <Tracks />
+      <Prizes />
+      <Timeline />
+      <Venue />
+      <FAQ />
+      <Sponsors />
+      <Footer />
     </div>
   );
 }

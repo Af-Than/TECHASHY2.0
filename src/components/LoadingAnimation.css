@@ -1,367 +1,126 @@
-.loading-container {
+.tekashi-loader {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: 99999;
+  background: #080404;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  pointer-events: none;
-}
-
-/* ── Curtain panels ── */
-.loading-curtain {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50%;
-  background: #000000;
-  z-index: 1;
-  will-change: transform;
   overflow: hidden;
 }
 
-.loading-curtain--left {
-  left: 0;
-  border-right: 1px solid rgba(220, 20, 60, 0.15);
+.tekashi-loader-grain {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 50% 50%, rgba(74, 14, 22, 0.25) 0%, transparent 70%);
+  pointer-events: none;
 }
 
-.loading-curtain--right {
-  right: 0;
-  border-left: 1px solid rgba(220, 20, 60, 0.15);
+.tekashi-loader-ink {
+  position: absolute;
+  width: min(90vw, 550px);
+  height: min(90vw, 550px);
+  background: radial-gradient(circle, rgba(158, 24, 37, 0.4) 0%, rgba(74, 14, 22, 0.25) 45%, transparent 75%);
+  filter: blur(24px);
+  border-radius: 50%;
+  pointer-events: none;
 }
 
-/* ── Center content (on top of curtains) ── */
-.loading-center-content {
+.tekashi-loader-content {
   position: relative;
   z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  text-align: center;
+  padding: 24px;
 }
 
-/* ── Vertical split line at center ── */
-.loading-split-line {
-  position: absolute;
-  top: 10%;
-  bottom: 10%;
-  left: 50%;
-  width: 1px;
-  background: linear-gradient(180deg,
-      transparent 0%,
-      rgba(220, 20, 60, 0.3) 20%,
-      rgba(220, 20, 60, 0.5) 50%,
-      rgba(220, 20, 60, 0.3) 80%,
-      transparent 100%);
-  z-index: 5;
-  animation: splitLinePulse 2s ease-in-out infinite;
-}
-
-@keyframes splitLinePulse {
-
-  0%,
-  100% {
-    opacity: 0.4;
-  }
-
-  50% {
-    opacity: 0.9;
-  }
-}
-
-/* ── Red glows ── */
-.loading-glow-1,
-.loading-glow-2 {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.3;
-  animation: pulse 3s ease-in-out infinite alternate;
-}
-
-.loading-glow-1 {
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(220, 20, 60, 0.6), transparent 70%);
-  top: 20%;
-  left: 15%;
-}
-
-.loading-glow-2 {
-  width: 350px;
-  height: 350px;
-  background: radial-gradient(circle, rgba(220, 20, 60, 0.4), transparent 70%);
-  bottom: 20%;
-  right: 15%;
-  animation-delay: 0.5s;
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1) translateY(0);
-    opacity: 0.2;
-  }
-
-  100% {
-    transform: scale(1.1) translateY(-10px);
-    opacity: 0.4;
-  }
-}
-
-/* ── Enso circle ── */
-.loading-enso {
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  border: 3px solid transparent;
-  border-top: 3px solid rgba(220, 20, 60, 0.6);
-  border-right: 3px solid rgba(220, 20, 60, 0.4);
-  border-bottom: 3px solid rgba(220, 20, 60, 0.1);
-  border-left: 3px solid rgba(220, 20, 60, 0.3);
-  animation: ensoSpin 4s ease-in-out infinite;
-  position: absolute;
-  will-change: transform, opacity;
-}
-
-@keyframes ensoSpin {
-  0% {
-    transform: rotate(0deg);
-    opacity: 0.3;
-  }
-
-  50% {
-    opacity: 0.8;
-  }
-
-  100% {
-    transform: rotate(360deg);
-    opacity: 0.3;
-  }
-}
-
-/* ── Text cycling ── */
-.loading-text-wrapper {
+.tekashi-loader-seal-box {
   position: relative;
-  height: 120px;
-  overflow: hidden;
-  z-index: 2;
-  will-change: transform, opacity;
-}
-
-.loading-text-cycle {
-  display: flex;
-  flex-direction: column;
-  animation: cycleText 6s linear infinite;
-}
-
-.loading-text-item {
+  width: 90px;
+  height: 90px;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 120px;
-  font-family: 'Gang of Three', sans-serif;
-  font-size: clamp(40px, 8vw, 80px);
-  font-weight: normal;
-  color: #FFFFFF;
-  letter-spacing: 0.15em;
-  text-shadow:
-    0 0 20px rgba(220, 20, 60, 0.8),
-    0 0 40px rgba(220, 20, 60, 0.4),
-    3px 3px 0px rgba(220, 20, 60, 0.3);
+  margin-bottom: 24px;
 }
 
-.loading-text-jp {
-  font-family: var(--font-samurai), 'Noto Sans JP', sans-serif;
-  letter-spacing: 0.3em;
-  text-shadow:
-    0 0 20px rgba(220, 20, 60, 0.6),
-    0 0 40px rgba(220, 20, 60, 0.3);
+.tekashi-enso-circle {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: #D8B978;
+  border-right-color: #D8B978;
+  border-bottom-color: rgba(216, 185, 120, 0.35);
+  box-shadow: 0 0 20px rgba(216, 185, 120, 0.3);
 }
 
-@keyframes cycleText {
-
-  0%,
-  33% {
-    transform: translateY(0);
-  }
-
-  36%,
-  66% {
-    transform: translateY(-120px);
-  }
-
-  69%,
-  100% {
-    transform: translateY(-240px);
-  }
+.tekashi-loader-stamp {
+  width: 44px;
+  height: 44px;
+  background: rgba(158, 24, 37, 0.85);
+  border: 2px solid #E63946;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFF1D0;
+  font-family: var(--font-noto-serif-jp), serif;
+  font-size: 20px;
+  font-weight: 700;
+  box-shadow: 0 0 16px rgba(230, 57, 70, 0.6);
 }
 
-/* ── Subtitle ── */
-.loading-subtitle {
-  margin-top: 1rem;
-  font-family: var(--font-samurai), sans-serif;
-  font-size: 0.9rem;
-  color: #DC143C;
+.tekashi-loader-title-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.tekashi-loader-kanji {
+  font-family: var(--font-noto-serif-jp), serif;
+  font-size: 13px;
   letter-spacing: 0.4em;
-  opacity: 0.7;
-  z-index: 2;
+  color: #C9A45C;
+  text-transform: uppercase;
+  margin-left: 0.4em;
 }
 
-/* ── Progress bar ── */
-.loading-progress-container {
-  position: absolute;
-  bottom: -100px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 300px;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.07);
-  overflow: hidden;
-  clip-path: polygon(2px 0, calc(100% - 2px) 0, 100% 50%, calc(100% - 2px) 100%, 2px 100%, 0 50%);
+.tekashi-loader-title {
+  font-family: 'Shuriken', 'Gang of Three', serif;
+  font-size: clamp(34px, 7vw, 64px);
+  font-weight: normal;
+  letter-spacing: 0.10em;
+  color: #EFE1BD;
+  text-shadow: 0 0 30px rgba(158, 24, 37, 0.8), 0 0 10px rgba(216, 185, 120, 0.4);
+  margin: 0;
+  line-height: 1.1;
 }
 
-.loading-progress-bar {
-  height: 100%;
-  background: linear-gradient(90deg, #DC143C, #FF4757, #DC143C);
-  background-size: 200% 100%;
-  animation: progressFill 2.8s ease-out forwards, shimmerBar 1.5s linear infinite;
-  will-change: width, box-shadow;
+.tekashi-loader-goldline {
+  width: clamp(140px, 30vw, 260px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #D8B978, transparent);
+  margin: 18px 0;
+  transform-origin: center;
 }
 
-@keyframes progressFill {
-  from {
-    width: 0;
-  }
-
-  to {
-    width: 100%;
-  }
+.tekashi-loader-sub {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'YoungSerif', Georgia, serif;
+  font-size: clamp(11px, 2vw, 13px);
+  letter-spacing: 0.28em;
+  color: #D8B978;
+  font-weight: 300;
+  text-transform: uppercase;
 }
 
-@keyframes shimmerBar {
-  0% {
-    background-position: 200% 0;
-  }
-
-  100% {
-    background-position: -200% 0;
-  }
-}
-
-/* ── Corner decorations ── */
-.loading-corner {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  opacity: 0.5;
-}
-
-.loading-corner::before,
-.loading-corner::after {
-  content: '';
-  position: absolute;
-}
-
-.loading-corner::before {
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(90deg, #DC143C, transparent);
-}
-
-.loading-corner::after {
-  width: 3px;
-  height: 100%;
-  background: linear-gradient(180deg, #DC143C, transparent);
-}
-
-.loading-corner-tl {
-  top: 40px;
-  left: 40px;
-}
-
-.loading-corner-tl::before {
-  top: 0;
-  left: 0;
-}
-
-.loading-corner-tl::after {
-  top: 0;
-  left: 0;
-}
-
-.loading-corner-tr {
-  top: 40px;
-  right: 40px;
-}
-
-.loading-corner-tr::before {
-  top: 0;
-  right: 0;
-  background: linear-gradient(90deg, transparent, #DC143C);
-}
-
-.loading-corner-tr::after {
-  top: 0;
-  right: 0;
-}
-
-.loading-corner-bl {
-  bottom: 40px;
-  left: 40px;
-}
-
-.loading-corner-bl::before {
-  bottom: 0;
-  left: 0;
-}
-
-.loading-corner-bl::after {
-  bottom: 0;
-  left: 0;
-  background: linear-gradient(180deg, transparent, #DC143C);
-}
-
-.loading-corner-br {
-  bottom: 40px;
-  right: 40px;
-}
-
-.loading-corner-br::before {
-  bottom: 0;
-  right: 0;
-  background: linear-gradient(90deg, transparent, #DC143C);
-}
-
-.loading-corner-br::after {
-  bottom: 0;
-  right: 0;
-  background: linear-gradient(180deg, transparent, #DC143C);
-}
-
-/* ── Wave decoration ── */
-.loading-wave {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 80px;
-  background: radial-gradient(ellipse at 50% 100%, rgba(220, 20, 60, 0.08) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 2;
-}
-
-.loading-wave::before {
-  content: '';
-  position: absolute;
-  bottom: 20px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg,
-      transparent 0%,
-      rgba(220, 20, 60, 0.3) 20%,
-      rgba(220, 20, 60, 0.2) 50%,
-      rgba(220, 20, 60, 0.3) 80%,
-      transparent 100%);
+.tekashi-loader-sub-dot {
+  color: #9E1825;
+  font-size: 10px;
 }

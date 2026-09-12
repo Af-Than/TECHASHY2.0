@@ -1,129 +1,150 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
+
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import "./LoadingAnimation.css";
 
 export default function LoadingAnimation({ onComplete }) {
-  const [phase, setPhase] = useState("loading"); // loading | revealing
   const containerRef = useRef(null);
-  const leftCurtainRef = useRef(null);
-  const rightCurtainRef = useRef(null);
-  const ensoRef = useRef(null);
-  const textWrapperRef = useRef(null);
-  const progressRef = useRef(null);
+  const inkDropRef = useRef(null);
+  const ensoRingRef = useRef(null);
+  const titleBoxRef = useRef(null);
+  const subtitleRef = useRef(null);
+  const sealRef = useRef(null);
+  const goldLineRef = useRef(null);
 
   useEffect(() => {
-    // Phase 1: Loading animation runs for 2.8s
-    const revealTimeout = setTimeout(() => {
-      setPhase("revealing");
+    const container = containerRef.current;
+    if (!container) return;
 
-      // Phase 2: Dramatic curtain reveal
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReducedMotion) {
+      const timer = setTimeout(() => {
+        document.body.style.overflow = prevOverflow;
+        onComplete?.();
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+
+    const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         onComplete: () => {
+          document.body.style.overflow = prevOverflow;
           onComplete?.();
         },
       });
 
-      // Flash the progress bar
-      if (progressRef.current) {
-        tl.to(progressRef.current, {
-          boxShadow: "0 0 30px rgba(220, 20, 60, 1), 0 0 60px rgba(220, 20, 60, 0.6)",
-          duration: 0.3,
-          ease: "power2.in",
-        }, 0);
-      }
+      // Initial States
+      gsap.set(container, { opacity: 1, visibility: "visible" });
+      gsap.set(inkDropRef.current, { scale: 0, opacity: 0 });
+      gsap.set(ensoRingRef.current, { rotation: -45, scale: 0.8, opacity: 0 });
+      gsap.set(titleBoxRef.current, { opacity: 0, y: 25, scale: 0.95 });
+      gsap.set(goldLineRef.current, { scaleX: 0, opacity: 0 });
+      gsap.set(subtitleRef.current, { opacity: 0, y: 15 });
+      gsap.set(sealRef.current, { scale: 1.6, opacity: 0 });
 
-      // Scale up the enso circle and fade
-      if (ensoRef.current) {
-        tl.to(ensoRef.current, {
-          scale: 2.5,
-          opacity: 0,
-          duration: 0.8,
-          ease: "power2.in",
-        }, 0.1);
-      }
+      // 1. Red Ink Droplet Bloom
+      tl.to(inkDropRef.current, {
+        scale: 1,
+        opacity: 0.85,
+        duration: 0.35,
+        ease: "power2.out",
+      }, 0.1);
 
-      // Fade text
-      if (textWrapperRef.current) {
-        tl.to(textWrapperRef.current, {
-          opacity: 0,
-          y: -30,
-          duration: 0.4,
-          ease: "power2.in",
-        }, 0);
-      }
+      // 2. Gold Ensō Ring reveal
+      tl.to(ensoRingRef.current, {
+        opacity: 0.9,
+        scale: 1,
+        rotation: 0,
+        duration: 0.6,
+        ease: "back.out(1.4)",
+      }, 0.3);
 
-      // Curtain split — left panel slides left
-      if (leftCurtainRef.current) {
-        tl.to(leftCurtainRef.current, {
-          x: "-100%",
-          duration: 0.9,
-          ease: "power3.inOut",
-        }, 0.4);
-      }
+      // 3. TEKASHI 2.0 title reveal
+      tl.to(titleBoxRef.current, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.5,
+        ease: "power3.out",
+      }, 0.5);
 
-      // Curtain split — right panel slides right
-      if (rightCurtainRef.current) {
-        tl.to(rightCurtainRef.current, {
-          x: "100%",
-          duration: 0.9,
-          ease: "power3.inOut",
-        }, 0.4);
-      }
+      // 4. Gold line expand
+      tl.to(goldLineRef.current, {
+        scaleX: 1,
+        opacity: 1,
+        duration: 0.45,
+        ease: "power2.out",
+      }, 0.7);
 
-    }, 2800);
+      // 5. Subtitle & Red Seal Stamp
+      tl.to(subtitleRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.4,
+        ease: "power2.out",
+      }, 0.8);
+
+      tl.to(sealRef.current, {
+        scale: 1,
+        opacity: 1,
+        duration: 0.25,
+        ease: "back.out(2)",
+      }, 0.85);
+
+      // 6. Hold and smoothly fade out to hero
+      tl.to(container, {
+        opacity: 0,
+        duration: 0.45,
+        ease: "power2.inOut",
+      }, 1.7);
+
+    }, containerRef);
 
     return () => {
-      clearTimeout(revealTimeout);
+      document.body.style.overflow = prevOverflow;
+      ctx.revert();
     };
   }, [onComplete]);
 
   return (
-    <div ref={containerRef} className="loading-container">
-      {/* Left curtain */}
-      <div ref={leftCurtainRef} className="loading-curtain loading-curtain--left">
-        {/* Red glows */}
-        <div className="loading-glow-1" />
-        {/* Corner decorations */}
-        <div className="loading-corner loading-corner-tl" />
-        <div className="loading-corner loading-corner-bl" />
-      </div>
+    <div ref={containerRef} className="tekashi-loader" aria-hidden="true">
+      <div className="tekashi-loader-grain" />
 
-      {/* Right curtain */}
-      <div ref={rightCurtainRef} className="loading-curtain loading-curtain--right">
-        <div className="loading-glow-2" />
-        <div className="loading-corner loading-corner-tr" />
-        <div className="loading-corner loading-corner-br" />
-      </div>
+      {/* Ink Bloom Background */}
+      <div ref={inkDropRef} className="tekashi-loader-ink" />
 
-      {/* Center content (sits on top of curtains) */}
-      <div className="loading-center-content">
-        {/* Enso circle */}
-        <div ref={ensoRef} className="loading-enso" />
-
-        {/* TECHASHY text */}
-        <div ref={textWrapperRef} className="loading-text-wrapper">
-          <div className="loading-text-cycle">
-            <span className="loading-text-item">TECHASHY</span>
-            <span className="loading-text-item loading-text-jp">テックアシ</span>
-            <span className="loading-text-item">TECHASHY</span>
+      <div className="tekashi-loader-content">
+        {/* Ensō Ring with Hanko Seal */}
+        <div className="tekashi-loader-seal-box">
+          <div ref={ensoRingRef} className="tekashi-enso-circle" />
+          <div ref={sealRef} className="tekashi-loader-stamp">
+            <span>極</span>
           </div>
         </div>
 
-        {/* Subtitle */}
-        <div className="loading-subtitle">ハッカソン • HACKATHON</div>
+        {/* Title */}
+        <div ref={titleBoxRef} className="tekashi-loader-title-wrap">
+          <span className="tekashi-loader-kanji">技術の祭典</span>
+          <h1 className="tekashi-loader-title">TECHASHY</h1>
+        </div>
 
-        {/* Progress bar */}
-        <div className="loading-progress-container">
-          <div ref={progressRef} className="loading-progress-bar" />
+        {/* Gold ornamental line */}
+        <div ref={goldLineRef} className="tekashi-loader-goldline" />
+
+        {/* Subtitle */}
+        <div ref={subtitleRef} className="tekashi-loader-sub">
+          <span className="tekashi-loader-sub-item">FORGED IN 24 HOURS</span>
+          <span className="tekashi-loader-sub-dot">✦</span>
+          <span className="tekashi-loader-sub-item">POWERED BY BETALABS</span>
         </div>
       </div>
-
-      {/* Vertical split line */}
-      <div className="loading-split-line" />
-
-      {/* Wave decoration at bottom */}
-      <div className="loading-wave" />
     </div>
   );
 }

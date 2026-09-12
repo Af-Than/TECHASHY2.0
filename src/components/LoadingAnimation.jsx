@@ -168,6 +168,12 @@ export default function LoadingAnimation({ onComplete }) {
 
   return (
     <div ref={containerRef} className="tekashi-loader" aria-hidden="true">
+      <div className="tekashi-loader-backdrop" />
+      <div className="tekashi-loader-mist tekashi-loader-mist--one" />
+      <div className="tekashi-loader-mist tekashi-loader-mist--two" />
+      <div className="tekashi-loader-orbit tekashi-loader-orbit--one" />
+      <div className="tekashi-loader-orbit tekashi-loader-orbit--two" />
+      <div className="tekashi-loader-scanline" />
       <div className="tekashi-loader-grain" />
       <div ref={inkDropRef} className="tekashi-loader-ink" />
 

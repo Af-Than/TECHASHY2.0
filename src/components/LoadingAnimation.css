@@ -10,6 +10,103 @@
   transform-origin: center center;
 }
 
+.tekashi-loader-backdrop {
+  position: absolute;
+  inset: -4%;
+  background:
+    linear-gradient(180deg, rgba(8, 4, 4, 0.76) 0%, rgba(20, 5, 8, 0.48) 48%, rgba(8, 4, 4, 0.92) 100%),
+    url('/pictures/hero-landscape-clean.jpg') center / cover no-repeat;
+  opacity: 0.62;
+  filter: saturate(0.58) sepia(0.3) hue-rotate(315deg) brightness(0.42) contrast(1.08);
+  transform: scale(1.04);
+  animation: tekashi-backdrop-drift 18s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes tekashi-backdrop-drift {
+  from { transform: scale(1.04) translate3d(-1%, -0.5%, 0); }
+  to { transform: scale(1.1) translate3d(1%, 0.5%, 0); }
+}
+
+.tekashi-loader-mist {
+  position: absolute;
+  width: 72vw;
+  height: 22vh;
+  border-radius: 50%;
+  background: rgba(158, 24, 37, 0.16);
+  filter: blur(38px);
+  pointer-events: none;
+  mix-blend-mode: screen;
+  animation: tekashi-mist-drift 12s ease-in-out infinite alternate;
+}
+
+.tekashi-loader-mist--one {
+  left: -18vw;
+  bottom: 8vh;
+}
+
+.tekashi-loader-mist--two {
+  right: -24vw;
+  top: 12vh;
+  background: rgba(216, 185, 120, 0.1);
+  animation-delay: -5s;
+  animation-duration: 16s;
+}
+
+@keyframes tekashi-mist-drift {
+  from { transform: translate3d(-4vw, 2vh, 0) rotate(-4deg); opacity: 0.45; }
+  to { transform: translate3d(8vw, -3vh, 0) rotate(5deg); opacity: 0.9; }
+}
+
+.tekashi-loader-orbit {
+  position: absolute;
+  width: min(80vw, 760px);
+  aspect-ratio: 1.9;
+  border: 1px solid rgba(216, 185, 120, 0.12);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: tekashi-orbit-breathe 8s ease-in-out infinite;
+}
+
+.tekashi-loader-orbit::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: 22%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #D8B978;
+  box-shadow: 0 0 14px 3px rgba(216, 185, 120, 0.45);
+}
+
+.tekashi-loader-orbit--one { transform: rotate(-18deg); }
+.tekashi-loader-orbit--two {
+  width: min(68vw, 640px);
+  transform: rotate(24deg);
+  animation-delay: -3s;
+  border-color: rgba(158, 24, 37, 0.16);
+}
+
+@keyframes tekashi-orbit-breathe {
+  0%, 100% { opacity: 0.45; scale: 0.98; }
+  50% { opacity: 1; scale: 1.03; }
+}
+
+.tekashi-loader-scanline {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(180deg, transparent 0, transparent 5px, rgba(255, 241, 208, 0.018) 6px, transparent 7px);
+  opacity: 0.65;
+  pointer-events: none;
+  animation: tekashi-scanline 9s linear infinite;
+}
+
+@keyframes tekashi-scanline {
+  from { transform: translateY(-12px); }
+  to { transform: translateY(12px); }
+}
+
 .tekashi-loader-grain {
   position: absolute;
   inset: 0;
@@ -217,6 +314,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .tekashi-loader-backdrop,
+  .tekashi-loader-mist,
+  .tekashi-loader-orbit,
+  .tekashi-loader-scanline,
   .tekashi-loader-ink,
   .tekashi-enso-svg,
   .tekashi-loader-petal {

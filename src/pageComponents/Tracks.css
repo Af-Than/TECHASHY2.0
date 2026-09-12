@@ -12,10 +12,9 @@
   right: -3%;
   width: 480px;
   height: 100%;
-  opacity: 0.18;
+  opacity: 0.065;
   pointer-events: none;
-  mix-blend-mode: screen;
-  filter: contrast(1.3) brightness(1.1);
+  filter: grayscale(1) sepia(0.8) saturate(1.8) hue-rotate(315deg) brightness(0.55) contrast(0.9);
 }
 
 .tr-wave-img {

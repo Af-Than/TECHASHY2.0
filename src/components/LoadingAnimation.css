@@ -7,6 +7,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  transform-origin: center center;
 }
 
 .tekashi-loader-grain {
@@ -18,13 +19,83 @@
 
 .tekashi-loader-ink {
   position: absolute;
-  width: min(90vw, 550px);
-  height: min(90vw, 550px);
-  background: radial-gradient(circle, rgba(158, 24, 37, 0.4) 0%, rgba(74, 14, 22, 0.25) 45%, transparent 75%);
-  filter: blur(24px);
+  width: min(90vw, 560px);
+  height: min(90vw, 560px);
+  background: radial-gradient(circle, rgba(158, 24, 37, 0.4) 0%, rgba(74, 14, 22, 0.24) 45%, transparent 75%);
+  filter: blur(26px);
   border-radius: 50%;
   pointer-events: none;
+  animation: tekashi-glow-breathe 5s ease-in-out infinite;
+  animation-delay: 1.2s;
 }
+
+@keyframes tekashi-glow-breathe {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.06); }
+}
+
+/* Corner wave decoration */
+.tekashi-loader-wave {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.045;
+  filter: grayscale(1) sepia(0.8) saturate(1.8) hue-rotate(315deg) brightness(0.55) contrast(0.9);
+}
+
+.tekashi-loader-wave--bl {
+  bottom: -6%;
+  left: -8%;
+  width: min(40vw, 420px);
+}
+
+.tekashi-loader-wave--tr {
+  top: -8%;
+  right: -8%;
+  width: min(32vw, 360px);
+  transform: scaleX(-1) rotate(8deg);
+}
+
+.tekashi-loader-wave-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Drifting petals */
+.tekashi-loader-petals {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.tekashi-loader-petal {
+  position: absolute;
+  top: 100%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50% 0 50% 50%;
+  background: rgba(216, 96, 96, 0.55);
+  animation: tekashi-petal-drift linear infinite;
+}
+
+@keyframes tekashi-petal-drift {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+  8% { opacity: 0.5; }
+  92% { opacity: 0.35; }
+  100% { transform: translate(var(--drift-x, 30px), -115vh) rotate(320deg); opacity: 0; }
+}
+
+.tekashi-loader-petal-0 { left: 6%;  --drift-x: 40px;  width: 4px; height: 4px; animation-duration: 13s; animation-delay: 0s; }
+.tekashi-loader-petal-1 { left: 18%; --drift-x: -30px; width: 6px; height: 6px; animation-duration: 16s; animation-delay: 1.5s; }
+.tekashi-loader-petal-2 { left: 27%; --drift-x: 20px;  width: 5px; height: 5px; animation-duration: 12s; animation-delay: 3s; }
+.tekashi-loader-petal-3 { left: 38%; --drift-x: -45px; width: 4px; height: 4px; animation-duration: 15s; animation-delay: 0.5s; }
+.tekashi-loader-petal-4 { left: 52%; --drift-x: 35px;  width: 6px; height: 6px; animation-duration: 14s; animation-delay: 2.2s; }
+.tekashi-loader-petal-5 { left: 63%; --drift-x: -20px; width: 5px; height: 5px; animation-duration: 17s; animation-delay: 1s; }
+.tekashi-loader-petal-6 { left: 71%; --drift-x: 30px;  width: 4px; height: 4px; animation-duration: 13.5s; animation-delay: 2.8s; }
+.tekashi-loader-petal-7 { left: 82%; --drift-x: -35px; width: 6px; height: 6px; animation-duration: 15.5s; animation-delay: 0.8s; }
+.tekashi-loader-petal-8 { left: 90%; --drift-x: 25px;  width: 5px; height: 5px; animation-duration: 12.5s; animation-delay: 3.4s; }
+.tekashi-loader-petal-9 { left: 96%; --drift-x: -15px; width: 4px; height: 4px; animation-duration: 16.5s; animation-delay: 1.8s; }
 
 .tekashi-loader-content {
   position: relative;
@@ -38,29 +109,40 @@
 
 .tekashi-loader-seal-box {
   position: relative;
-  width: 90px;
-  height: 90px;
+  width: clamp(78px, 12vw, 100px);
+  height: clamp(78px, 12vw, 100px);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 24px;
+  margin-bottom: 26px;
 }
 
-.tekashi-enso-circle {
+.tekashi-enso-svg {
   position: absolute;
   inset: 0;
-  border-radius: 50%;
-  border: 2px solid transparent;
-  border-top-color: #D8B978;
-  border-right-color: #D8B978;
-  border-bottom-color: rgba(216, 185, 120, 0.35);
-  box-shadow: 0 0 20px rgba(216, 185, 120, 0.3);
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 10px rgba(216, 185, 120, 0.4));
+  animation: tekashi-ring-spin 9s linear infinite;
+  animation-play-state: paused;
+  animation-delay: 1.7s;
+  animation-fill-mode: forwards;
+}
+
+.tekashi-loader-content .tekashi-enso-svg {
+  animation-play-state: running;
+}
+
+@keyframes tekashi-ring-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .tekashi-loader-stamp {
-  width: 44px;
-  height: 44px;
-  background: rgba(158, 24, 37, 0.85);
+  position: relative;
+  width: 42px;
+  height: 42px;
+  background: rgba(158, 24, 37, 0.88);
   border: 2px solid #E63946;
   border-radius: 6px;
   display: flex;
@@ -68,9 +150,18 @@
   justify-content: center;
   color: #FFF1D0;
   font-family: var(--font-noto-serif-jp), serif;
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 700;
-  box-shadow: 0 0 16px rgba(230, 57, 70, 0.6);
+  box-shadow: 0 0 16px rgba(230, 57, 70, 0.6), 0 4px 12px rgba(0, 0, 0, 0.55);
+}
+
+.tekashi-loader-stamp::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(255, 241, 208, 0.35);
+  border-radius: 3px;
+  pointer-events: none;
 }
 
 .tekashi-loader-title-wrap {
@@ -82,8 +173,7 @@
 
 .tekashi-loader-kanji {
   font-family: var(--font-noto-serif-jp), serif;
-  font-size: 13px;
-  letter-spacing: 0.4em;
+  font-size: clamp(11px, 2vw, 13px);
   color: #C9A45C;
   text-transform: uppercase;
   margin-left: 0.4em;
@@ -91,13 +181,14 @@
 
 .tekashi-loader-title {
   font-family: 'Shuriken', 'Gang of Three', serif;
-  font-size: clamp(34px, 7vw, 64px);
+  font-size: clamp(32px, 9vw, 64px);
   font-weight: normal;
   letter-spacing: 0.10em;
   color: #EFE1BD;
   text-shadow: 0 0 30px rgba(158, 24, 37, 0.8), 0 0 10px rgba(216, 185, 120, 0.4);
   margin: 0;
   line-height: 1.1;
+  white-space: nowrap;
 }
 
 .tekashi-loader-goldline {
@@ -113,8 +204,8 @@
   align-items: center;
   gap: 12px;
   font-family: 'YoungSerif', Georgia, serif;
-  font-size: clamp(11px, 2vw, 13px);
-  letter-spacing: 0.28em;
+  font-size: clamp(10px, 2vw, 13px);
+  letter-spacing: 0.24em;
   color: #D8B978;
   font-weight: 300;
   text-transform: uppercase;
@@ -123,4 +214,23 @@
 .tekashi-loader-sub-dot {
   color: #9E1825;
   font-size: 10px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tekashi-loader-ink,
+  .tekashi-enso-svg,
+  .tekashi-loader-petal {
+    animation: none !important;
+  }
+  .tekashi-loader-wave {
+    opacity: 0.04;
+  }
+}
+
+@media (max-width: 480px) {
+  .tekashi-loader-title {
+    font-size: clamp(28px, 11vw, 48px);
+  }
+  .tekashi-loader-wave--bl { width: 46vw; }
+  .tekashi-loader-wave--tr { width: 38vw; }
 }

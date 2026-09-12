@@ -1,0 +1,11 @@
+services:
+  techashy-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: techashy-frontend-prod
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production

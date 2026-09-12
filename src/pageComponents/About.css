@@ -1,0 +1,324 @@
+/* ── About – Dossier / Mission Briefing aesthetic ──────── */
+
+.ab-section {
+  position: relative;
+  background: #060606;
+  padding: 130px 0 120px;
+  overflow: hidden;
+}
+
+/* Dot-grid atmosphere */
+.ab-dotgrid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle,
+      rgba(220, 20, 60, 0.18) 1px,
+      transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.ab-container {
+  max-width: 1260px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+.ab-header {
+  margin-bottom: 80px;
+}
+
+.ab-chapter {
+  display: block;
+  font-family: 'Courier New', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.45em;
+  color: rgba(220, 20, 60, 0.7);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.ab-headline {
+  font-family: 'Iceberg', sans-serif;
+  font-weight: normal;
+  font-size: clamp(3.2rem, 9vw, 7.5rem);
+  line-height: 0.92;
+  color: #fff;
+  letter-spacing: 0.06em;
+  margin: 0 0 28px;
+  text-transform: uppercase;
+}
+
+.ab-headline-red {
+  font-style: normal;
+  color: #DC143C;
+  text-shadow:
+    0 0 40px rgba(220, 20, 60, 0.45),
+    0 0 80px rgba(220, 20, 60, 0.2);
+}
+
+.ab-lede {
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.38);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding-left: 2px;
+  margin: 0;
+}
+
+/* ── Intel strips ───────────────────────────────────────── */
+.ab-intel {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  margin-bottom: 80px;
+}
+
+.ab-strip {
+  display: grid;
+  grid-template-columns: 110px 1px 1fr;
+  align-items: stretch;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 32px 0;
+  position: relative;
+  overflow: hidden;
+  will-change: transform, opacity;
+}
+
+@keyframes ab-slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Right edge glow bar on hover */
+.ab-strip-bar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 2px;
+  height: 0%;
+  background: #DC143C;
+  box-shadow: 0 0 8px rgba(220, 20, 60, 0.8);
+  transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ab-strip:hover .ab-strip-bar {
+  height: 100%;
+}
+
+/* Background bleed on hover */
+.ab-strip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(220, 20, 60, 0.035);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.ab-strip:hover::before {
+  opacity: 1;
+}
+
+/* Index column */
+.ab-strip-index {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  padding-right: 24px;
+}
+
+.ab-strip-num {
+  font-family: 'Iceberg', sans-serif;
+  font-size: 1.8rem;
+  color: rgba(220, 20, 60, 0.5);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  transition: color 0.3s ease;
+}
+
+.ab-strip:hover .ab-strip-num {
+  color: #DC143C;
+}
+
+.ab-strip-tag {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+/* Thin vertical divider */
+.ab-strip-divider {
+  width: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0 36px 0 0;
+  flex-shrink: 0;
+}
+
+/* Body */
+.ab-strip-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.ab-strip-heading {
+  font-family: 'Iceberg', sans-serif;
+  font-weight: normal;
+  font-size: clamp(1.1rem, 2vw, 1.45rem);
+  color: #fff;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0;
+  transition: text-shadow 0.3s ease;
+}
+
+.ab-strip:hover .ab-strip-heading {
+  text-shadow: 0 0 12px rgba(220, 20, 60, 0.35);
+}
+
+.ab-strip-text {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.45);
+  margin: 0;
+  max-width: 680px;
+  transition: color 0.3s ease;
+}
+
+.ab-strip:hover .ab-strip-text {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+/* ── Stats row ──────────────────────────────────────────── */
+.ab-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid rgba(220, 20, 60, 0.25);
+  border-bottom: 1px solid rgba(220, 20, 60, 0.25);
+}
+
+.ab-stat {
+  padding: 40px 32px;
+  border-right: 1px solid rgba(220, 20, 60, 0.12);
+  position: relative;
+  overflow: hidden;
+  will-change: transform, opacity;
+}
+
+.ab-stat:last-child {
+  border-right: none;
+}
+
+@keyframes ab-fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover fill */
+.ab-stat::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(220, 20, 60, 0.05);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.ab-stat:hover::before {
+  opacity: 1;
+}
+
+.ab-stat-num {
+  font-family: 'Iceberg', sans-serif;
+  font-size: clamp(2.4rem, 4.5vw, 4rem);
+  font-weight: normal;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 10px;
+  letter-spacing: 0.04em;
+  transition: text-shadow 0.3s ease;
+}
+
+.ab-stat:hover .ab-stat-num {
+  text-shadow: 0 0 20px rgba(220, 20, 60, 0.5);
+}
+
+.ab-stat-unit {
+  font-size: 0.55em;
+  color: #DC143C;
+  vertical-align: super;
+  margin-left: 2px;
+}
+
+.ab-stat-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .ab-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ab-stat:nth-child(2) {
+    border-right: none;
+  }
+
+  .ab-stat:nth-child(3) {
+    border-top: 1px solid rgba(220, 20, 60, 0.12);
+  }
+
+  .ab-stat:nth-child(4) {
+    border-top: 1px solid rgba(220, 20, 60, 0.12);
+    border-right: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .ab-section {
+    padding: 90px 0 80px;
+  }
+
+  .ab-container {
+    padding: 0 24px;
+  }
+
+  .ab-strip {
+    grid-template-columns: 80px 1px 1fr;
+  }
+
+  .ab-strip-divider {
+    margin-right: 20px;
+  }
+
+  .ab-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ab-stat {
+    padding: 28px 20px;
+  }
+}

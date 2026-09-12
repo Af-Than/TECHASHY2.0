@@ -1,0 +1,1017 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Gang of Three Font - Custom Samurai Font */
+@font-face {
+  font-family: 'Gang of Three';
+  src: url('/go3v2.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-montserrat);
+  --font-mono: var(--font-montserrat);
+  --font-samurai: var(--font-samurai);
+  --font-six-caps: var(--font-six-caps);
+  --font-exo2: var(--font-exo2);
+  --font-iceberg: var(--font-iceberg);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
+  --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear;
+
+  @keyframes shimmer-slide {
+    to {
+      transform: translate(calc(100cqw - 100%), 0);
+    }
+  }
+
+  @keyframes spin-around {
+    0% {
+      transform: translateZ(0) rotate(0);
+    }
+
+    15%,
+    35% {
+      transform: translateZ(0) rotate(90deg);
+    }
+
+    65%,
+    85% {
+      transform: translateZ(0) rotate(270deg);
+    }
+
+    100% {
+      transform: translateZ(0) rotate(360deg);
+    }
+  }
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: #000000;
+  --foreground: #FFFFFF;
+  --card: #0a0a0a;
+  --card-foreground: #FFFFFF;
+  --popover: #0a0a0a;
+  --popover-foreground: #FFFFFF;
+  --primary: #DC143C;
+  --primary-foreground: #FFFFFF;
+  --secondary: #8B0000;
+  --secondary-foreground: #FFFFFF;
+  --muted: #1a1a1a;
+  --muted-foreground: #9CA3AF;
+  --accent: #DC143C;
+  --accent-foreground: #FFFFFF;
+  --destructive: #DC143C;
+  --border: #2a2a2a;
+  --input: #2a2a2a;
+  --ring: #DC143C;
+  --chart-1: #DC143C;
+  --chart-2: #8B0000;
+  --chart-3: #FFFFFF;
+  --chart-4: #FF6347;
+  --chart-5: #B22222;
+
+  /* Japanese theme accents */
+  --ink-wash: rgba(40, 35, 30, 0.6);
+  --sakura-pink: #FFB7C5;
+  --sakura-dim: rgba(255, 183, 197, 0.15);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #000000;
+  color: #FFFFFF;
+  font-family: var(--font-montserrat), sans-serif;
+  overflow-x: hidden;
+}
+
+/* Samurai-inspired text styling */
+.samurai-text {
+  font-family: var(--font-samurai), sans-serif;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Red accent elements */
+.accent-red {
+  color: #DC143C;
+}
+
+.bg-accent-red {
+  background-color: #DC143C;
+}
+
+/* Professional gradient overlays */
+.gradient-red-black {
+  background: linear-gradient(135deg, #000000 0%, #1a0000 50%, #000000 100%);
+}
+
+.gradient-overlay {
+  background: linear-gradient(180deg,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(220, 20, 60, 0.05) 50%,
+      rgba(0, 0, 0, 0.9) 100%);
+}
+
+/* ============ ENHANCED CHERRY BLOSSOM PETALS ============ */
+
+/* Path 1: Gentle drift */
+@keyframes sakuraFall {
+  0% {
+    transform: translateY(-10vh) translateX(0) rotate(0deg) rotateY(0deg);
+    opacity: 1;
+  }
+
+  25% {
+    transform: translateY(25vh) translateX(20px) rotate(90deg) rotateY(45deg);
+    opacity: 0.9;
+  }
+
+  50% {
+    transform: translateY(50vh) translateX(-15px) rotate(180deg) rotateY(90deg);
+    opacity: 0.7;
+  }
+
+  75% {
+    transform: translateY(75vh) translateX(25px) rotate(270deg) rotateY(135deg);
+    opacity: 0.4;
+  }
+
+  100% {
+    transform: translateY(110vh) translateX(-5px) rotate(360deg) rotateY(180deg);
+    opacity: 0;
+  }
+}
+
+/* Path 2: Wide sway */
+@keyframes sakuraFall2 {
+  0% {
+    transform: translateY(-10vh) translateX(0) rotate(45deg) rotateX(0deg);
+    opacity: 0.8;
+  }
+
+  30% {
+    transform: translateY(30vh) translateX(-30px) rotate(135deg) rotateX(60deg);
+  }
+
+  60% {
+    transform: translateY(60vh) translateX(20px) rotate(225deg) rotateX(120deg);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: translateY(110vh) translateX(10px) rotate(405deg) rotateX(180deg);
+    opacity: 0;
+  }
+}
+
+/* Path 3: Wind gust — fast lateral movement */
+@keyframes sakuraFall3 {
+  0% {
+    transform: translateY(-5vh) translateX(0) rotate(20deg) rotateY(0deg) scale(1);
+    opacity: 0.9;
+  }
+
+  20% {
+    transform: translateY(20vh) translateX(40px) rotate(80deg) rotateY(60deg) scale(1.05);
+    opacity: 0.85;
+  }
+
+  40% {
+    transform: translateY(40vh) translateX(-20px) rotate(160deg) rotateY(120deg) scale(0.95);
+    opacity: 0.7;
+  }
+
+  60% {
+    transform: translateY(55vh) translateX(50px) rotate(240deg) rotateY(180deg) scale(1.02);
+    opacity: 0.5;
+  }
+
+  80% {
+    transform: translateY(80vh) translateX(-30px) rotate(300deg) rotateY(240deg) scale(0.98);
+    opacity: 0.3;
+  }
+
+  100% {
+    transform: translateY(112vh) translateX(15px) rotate(380deg) rotateY(360deg) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Path 4: Spiral descent */
+@keyframes sakuraFall4 {
+  0% {
+    transform: translateY(-8vh) translateX(0) rotate(0deg) rotateX(0deg) rotateY(0deg);
+    opacity: 0.85;
+  }
+
+  25% {
+    transform: translateY(22vh) translateX(35px) rotate(120deg) rotateX(45deg) rotateY(90deg);
+    opacity: 0.75;
+  }
+
+  50% {
+    transform: translateY(48vh) translateX(-25px) rotate(240deg) rotateX(90deg) rotateY(180deg);
+    opacity: 0.55;
+  }
+
+  75% {
+    transform: translateY(78vh) translateX(40px) rotate(340deg) rotateX(135deg) rotateY(270deg);
+    opacity: 0.3;
+  }
+
+  100% {
+    transform: translateY(115vh) translateX(-10px) rotate(440deg) rotateX(180deg) rotateY(360deg);
+    opacity: 0;
+  }
+}
+
+/* Path 5: Gentle float — very slow */
+@keyframes sakuraFall5 {
+  0% {
+    transform: translateY(-12vh) translateX(5px) rotate(10deg) scale(0.9);
+    opacity: 0.7;
+  }
+
+  30% {
+    transform: translateY(28vh) translateX(-12px) rotate(70deg) scale(1.1);
+    opacity: 0.8;
+  }
+
+  60% {
+    transform: translateY(58vh) translateX(18px) rotate(150deg) scale(0.85);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: translateY(112vh) translateX(-8px) rotate(260deg) scale(1);
+    opacity: 0;
+  }
+}
+
+.sakura-container {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* Base petal — crimson gradient with 3D support */
+.sakura-petal {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(ellipse at 30% 30%, rgba(220, 20, 60, 0.7), rgba(220, 20, 60, 0.2));
+  border-radius: 50% 0 50% 0;
+  opacity: 0;
+  animation: sakuraFall linear infinite;
+  will-change: transform, opacity;
+  backface-visibility: visible;
+  transform-style: preserve-3d;
+}
+
+/* Varied petal shapes per nth-child */
+.sakura-petal:nth-child(3n+1) {
+  border-radius: 50% 0 50% 0;
+}
+
+.sakura-petal:nth-child(3n+2) {
+  border-radius: 0 50% 0 50%;
+}
+
+.sakura-petal:nth-child(3n) {
+  border-radius: 50% 20% 50% 20%;
+}
+
+/* Varied colors — some lighter pink, some deeper crimson */
+.sakura-petal:nth-child(4n+1) {
+  background: radial-gradient(ellipse at 30% 30%, rgba(255, 100, 120, 0.6), rgba(220, 20, 60, 0.15));
+}
+
+.sakura-petal:nth-child(4n+3) {
+  background: radial-gradient(ellipse at 30% 30%, rgba(180, 10, 40, 0.75), rgba(139, 0, 0, 0.2));
+}
+
+/* Assign different paths to different petals */
+.sakura-petal:nth-child(5n+1) {
+  animation-name: sakuraFall;
+}
+
+.sakura-petal:nth-child(5n+2) {
+  animation-name: sakuraFall2;
+}
+
+.sakura-petal:nth-child(5n+3) {
+  animation-name: sakuraFall3;
+}
+
+.sakura-petal:nth-child(5n+4) {
+  animation-name: sakuraFall4;
+}
+
+.sakura-petal:nth-child(5n) {
+  animation-name: sakuraFall5;
+}
+
+/* Individual petal timing — 15 petals */
+.sakura-petal:nth-child(1) {
+  left: 3%;
+  animation-duration: 14s;
+  animation-delay: 0s;
+  width: 10px;
+  height: 10px;
+}
+
+.sakura-petal:nth-child(2) {
+  left: 10%;
+  animation-duration: 17s;
+  animation-delay: 1.5s;
+  width: 14px;
+  height: 14px;
+}
+
+.sakura-petal:nth-child(3) {
+  left: 18%;
+  animation-duration: 12s;
+  animation-delay: 3s;
+  width: 8px;
+  height: 8px;
+}
+
+.sakura-petal:nth-child(4) {
+  left: 25%;
+  animation-duration: 16s;
+  animation-delay: 0.8s;
+  width: 12px;
+  height: 12px;
+}
+
+.sakura-petal:nth-child(5) {
+  left: 33%;
+  animation-duration: 15s;
+  animation-delay: 2.5s;
+  width: 11px;
+  height: 11px;
+}
+
+.sakura-petal:nth-child(6) {
+  left: 40%;
+  animation-duration: 18s;
+  animation-delay: 4s;
+  width: 15px;
+  height: 15px;
+}
+
+.sakura-petal:nth-child(7) {
+  left: 48%;
+  animation-duration: 13s;
+  animation-delay: 1s;
+  width: 9px;
+  height: 9px;
+}
+
+.sakura-petal:nth-child(8) {
+  left: 55%;
+  animation-duration: 16s;
+  animation-delay: 3.5s;
+  width: 13px;
+  height: 13px;
+}
+
+.sakura-petal:nth-child(9) {
+  left: 62%;
+  animation-duration: 14s;
+  animation-delay: 0.3s;
+  width: 10px;
+  height: 10px;
+}
+
+.sakura-petal:nth-child(10) {
+  left: 70%;
+  animation-duration: 17s;
+  animation-delay: 2s;
+  width: 12px;
+  height: 12px;
+}
+
+.sakura-petal:nth-child(11) {
+  left: 77%;
+  animation-duration: 12s;
+  animation-delay: 4.5s;
+  width: 8px;
+  height: 8px;
+}
+
+.sakura-petal:nth-child(12) {
+  left: 82%;
+  animation-duration: 15s;
+  animation-delay: 1.8s;
+  width: 14px;
+  height: 14px;
+}
+
+.sakura-petal:nth-child(13) {
+  left: 88%;
+  animation-duration: 19s;
+  animation-delay: 0.5s;
+  width: 11px;
+  height: 11px;
+}
+
+.sakura-petal:nth-child(14) {
+  left: 93%;
+  animation-duration: 14s;
+  animation-delay: 3.2s;
+  width: 9px;
+  height: 9px;
+}
+
+.sakura-petal:nth-child(15) {
+  left: 97%;
+  animation-duration: 16s;
+  animation-delay: 2.2s;
+  width: 13px;
+  height: 13px;
+}
+
+/* ============ END CHERRY BLOSSOMS ============ */
+
+/* Hide scrollbar — keep scroll functionality */
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  -ms-overflow-style: none;
+  /* IE/Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+/* Button shimmer animation */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+/* Register button styles */
+.register-button {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
+  border: none;
+  color: #FFFFFF;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  box-shadow:
+    0 0 20px rgba(220, 20, 60, 0.6),
+    0 8px 32px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+/* Shimmer sweep on hover */
+.register-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+  pointer-events: none;
+}
+
+.register-button:hover::after {
+  left: 100%;
+}
+
+.register-button:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow:
+    0 0 30px rgba(220, 20, 60, 0.9),
+    0 12px 40px rgba(220, 20, 60, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.register-button:active {
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* ============ HERO SUBTITLE ============ */
+.hero-subtitle {
+  animation: heroSubFade 1.2s ease 1.5s forwards;
+}
+
+/* ============ SWORD DRAW REVEAL ============ */
+@keyframes swordReveal {
+  0%   { clip-path: inset(0 100% 0 0); }
+  100% { clip-path: inset(0 0%   0 0); }
+}
+
+@keyframes swordGleam {
+  0%   { transform: translateX(-110%) skewX(-18deg); opacity: 0;   filter: blur(8px) brightness(2); }
+  8%   { opacity: 0;   filter: blur(4px) brightness(1.8); }
+  16%  { opacity: 1;   filter: blur(2px) brightness(1.4); }
+  55%  { opacity: 1;   filter: blur(2px) brightness(1.2); }
+  72%  { opacity: 0.7; filter: blur(3px) brightness(1.0); }
+  86%  { opacity: 0.2; filter: blur(6px) brightness(0.8); }
+  100% { transform: translateX(125%)  skewX(-18deg); opacity: 0;   filter: blur(12px) brightness(0.4); }
+}
+
+.sword-draw-wrapper {
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+}
+
+.sword-draw-text {
+  display: inline-block;
+  clip-path: inset(0 100% 0 0);
+  animation: swordReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.sword-gleam {
+  position: absolute;
+  top: -15%;
+  left: 0;
+  height: 130%;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(220, 20, 60, 0.03) 15%,
+    rgba(220, 20, 60, 0.5) 36%,
+    rgba(255, 80, 100, 0.92) 46%,
+    rgba(255, 215, 215, 1) 50%,
+    rgba(255, 80, 100, 0.85) 54%,
+    rgba(220, 20, 60, 0.4) 64%,
+    rgba(220, 20, 60, 0.12) 76%,
+    rgba(220, 20, 60, 0.03) 88%,
+    transparent 100%
+  );
+  transform: translateX(-110%) skewX(-18deg);
+  animation: swordGleam 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  pointer-events: none;
+  border-radius: 1px;
+  filter: blur(2px);
+  will-change: transform, opacity, filter;
+}
+
+@keyframes heroSubFade {
+  from {
+    opacity: 0;
+    letter-spacing: 0.8em;
+  }
+
+  to {
+    opacity: 1;
+    letter-spacing: 0.45em;
+  }
+}
+
+/* ============ SECTION TRANSITION GRADIENTS ============ */
+.ab-section::before,
+.tr-section::before,
+.tl-section::before,
+.sp-section::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent, currentColor);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.03;
+}
+
+/* ============ KATANA SHINE — subtle diagonal light sweep on hover ============ */
+.katana-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.katana-shine::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 30%;
+  height: 200%;
+  background: linear-gradient(105deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.08) 45%,
+      rgba(255, 255, 255, 0.15) 50%,
+      rgba(255, 255, 255, 0.08) 55%,
+      transparent 60%);
+  transform: skewX(-15deg);
+  transition: none;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.katana-shine:hover::after {
+  animation: katanaSweep 0.6s ease forwards;
+}
+
+@keyframes katanaSweep {
+  0% {
+    left: -60%;
+  }
+
+  100% {
+    left: 130%;
+  }
+}
+
+/* Crimson variant for cards with dark backgrounds */
+.katana-shine-crimson::after {
+  background: linear-gradient(105deg,
+      transparent 40%,
+      rgba(220, 20, 60, 0.06) 45%,
+      rgba(220, 20, 60, 0.12) 50%,
+      rgba(220, 20, 60, 0.06) 55%,
+      transparent 60%);
+}
+
+/* ============ SMOOTH FAQ ACCORDION ============ */
+.faq-card__a {
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============ COUNTDOWN TIMER — SLOT MACHINE EDITION ============ */
+
+@font-face {
+  font-family: 'Brushia';
+  src: url('/BRUSHIA.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Outer wrap ── */
+.countdown-wrap {
+  margin-top: clamp(20px, 3vw, 36px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(8px, 1.2vw, 14px);
+}
+
+/* ── Header label row ── */
+.cd-header-line {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 1.2vw, 16px);
+}
+
+.cd-header-text {
+  font-family: 'Iceberg', sans-serif;
+  font-size: clamp(8px, 2vw, 9.5px);
+  letter-spacing: clamp(0.15em, 0.8vw, 0.4em);
+  color: rgba(220, 20, 60, 0.7);
+  text-transform: uppercase;
+}
+
+.cd-header-tick {
+  display: block;
+  width: clamp(20px, 4vw, 55px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(220, 20, 60, 0.55));
+}
+
+.cd-header-tick:last-child {
+  background: linear-gradient(90deg, rgba(220, 20, 60, 0.55), transparent);
+}
+
+/* ── Main board ── */
+.cd-board {
+  position: relative;
+  padding: clamp(10px, 1.4vw, 18px) clamp(14px, 2vw, 26px);
+  background:
+    linear-gradient(160deg, rgba(30, 0, 8, 0.92) 0%, rgba(6, 0, 2, 0.97) 60%),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(220, 20, 60, 0.015) 2px,
+      rgba(220, 20, 60, 0.015) 4px
+    );
+  border: 1px solid rgba(220, 20, 60, 0.18);
+  border-top-color: rgba(220, 20, 60, 0.45);
+  border-bottom-color: rgba(220, 20, 60, 0.08);
+  clip-path: polygon(
+    12px 0, calc(100% - 12px) 0,
+    100% 12px, 100% calc(100% - 12px),
+    calc(100% - 12px) 100%, 12px 100%,
+    0 calc(100% - 12px), 0 12px
+  );
+  overflow: hidden;
+}
+
+/* Ambient glow behind the board */
+.cd-board-glow {
+  position: absolute;
+  inset: -30px;
+  background: radial-gradient(ellipse at 50% 60%, rgba(220, 20, 60, 0.18) 0%, transparent 65%);
+  pointer-events: none;
+  animation: cdBoardPulse 3s ease-in-out infinite;
+}
+
+@keyframes cdBoardPulse {
+  0%, 100% { opacity: 0.7; }
+  50%       { opacity: 1.0; }
+}
+
+/* Corner accent marks */
+.cd-board-corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+}
+
+.cd-board-corner--tl { top: 0;  left: 0;  border-top: 1.5px solid rgba(220,20,60,0.7); border-left: 1.5px solid rgba(220,20,60,0.7); }
+.cd-board-corner--tr { top: 0;  right: 0; border-top: 1.5px solid rgba(220,20,60,0.7); border-right: 1.5px solid rgba(220,20,60,0.7); }
+.cd-board-corner--bl { bottom: 0; left: 0;  border-bottom: 1.5px solid rgba(220,20,60,0.5); border-left: 1.5px solid rgba(220,20,60,0.5); }
+.cd-board-corner--br { bottom: 0; right: 0; border-bottom: 1.5px solid rgba(220,20,60,0.5); border-right: 1.5px solid rgba(220,20,60,0.5); }
+
+/* ── Inner flex row ── */
+.cd-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: clamp(6px, 1vw, 14px);
+}
+
+/* ── Single unit (digit pair + label) ── */
+.cd-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ── Digit cell wrapper ── */
+.cd-cell {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  background: rgba(0, 0, 0, 0.82);
+  border: 1px solid rgba(220, 20, 60, 0.22);
+  border-top-color: rgba(220, 20, 60, 0.5);
+  clip-path: polygon(
+    4px 0, calc(100% - 4px) 0,
+    100% 4px, 100% calc(100% - 4px),
+    calc(100% - 4px) 100%, 4px 100%,
+    0 calc(100% - 4px), 0 4px
+  );
+  overflow: hidden;
+  padding: clamp(8px, 1.2vw, 16px) clamp(6px, 1vw, 12px);
+}
+
+/* Scanline overlay */
+.cd-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.18) 3px,
+    rgba(0, 0, 0, 0.18) 4px
+  );
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Flip-clock horizontal split glow */
+.cd-cell-split {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 5%, rgba(220, 20, 60, 0.45) 30%, rgba(220, 20, 60, 0.45) 70%, transparent 95%);
+  z-index: 4;
+  transform: translateY(-50%);
+}
+
+/* Inner red glow top half */
+.cd-cell-glow {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 50%;
+  background: linear-gradient(to bottom, rgba(220, 20, 60, 0.07), transparent);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ── Two digits side by side ── */
+.cd-digits {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: clamp(2px, 0.3vw, 4px);
+}
+
+/* ── Reel window (one digit slot) ── */
+.cd-reel-window {
+  height: clamp(28px, 4.5vw, 52px);
+  width: clamp(18px, 2.8vw, 34px);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Fade mask top + bottom of reel */
+.cd-reel-window::before,
+.cd-reel-window::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  height: 28%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.cd-reel-window::before {
+  top: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.65), transparent);
+}
+
+.cd-reel-window::after {
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.65), transparent);
+}
+
+/* ── Reel strip (0-9 stacked) ── */
+.cd-reel-strip {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+/* ── Individual digit cell in strip ── */
+.cd-reel-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: clamp(28px, 4.5vw, 52px);
+  font-family: 'Brushia', monospace;
+  font-size: clamp(22px, 3.8vw, 46px);
+  font-weight: normal;
+  color: #fff;
+  line-height: 1;
+  text-shadow:
+    0 0 10px rgba(220, 20, 60, 1),
+    0 0 25px rgba(220, 20, 60, 0.65),
+    0 0 50px rgba(220, 20, 60, 0.3);
+  letter-spacing: 0;
+  flex-shrink: 0;
+}
+
+/* ── Unit label ── */
+.cd-unit-label {
+  font-family: 'Iceberg', sans-serif;
+  font-size: clamp(6px, 0.65vw, 8px);
+  letter-spacing: 0.36em;
+  color: rgba(220, 20, 60, 0.5);
+  text-transform: uppercase;
+}
+
+/* ── Colon separator ── */
+.cd-colon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(5px, 0.9vw, 10px);
+  padding-bottom: 20px;
+  animation: cdColonBlink 1s step-start infinite;
+}
+
+.cd-colon span {
+  display: block;
+  width: clamp(4px, 0.6vw, 7px);
+  height: clamp(4px, 0.6vw, 7px);
+  border-radius: 50%;
+  background: rgba(220, 20, 60, 0.85);
+  box-shadow: 0 0 8px rgba(220, 20, 60, 1), 0 0 18px rgba(220, 20, 60, 0.6);
+}
+
+@keyframes cdColonBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.05; }
+}
+
+/* ── Footer deadline ── */
+.cd-footer {
+  font-family: 'Iceberg', sans-serif;
+  font-size: clamp(6.5px, 1.8vw, 9px);
+  letter-spacing: clamp(0.1em, 0.6vw, 0.3em);
+  color: rgba(255, 255, 255, 0.18);
+  text-transform: uppercase;
+}
+
+/* ── Expired state ── */
+.countdown-expired {
+  font-family: 'Iceberg', sans-serif;
+  font-size: clamp(12px, 3.5vw, 16px);
+  letter-spacing: 0.3em;
+  color: rgba(220, 20, 60, 0.75);
+  text-transform: uppercase;
+}
+
+/* ── Mobile responsive fixes ── */
+@media (max-width: 480px) {
+  .cd-board {
+    padding: 10px 10px;
+  }
+
+  .cd-inner {
+    gap: 4px;
+  }
+
+  .cd-unit-label {
+    font-size: 6px;
+    letter-spacing: 0.15em;
+  }
+
+  .cd-footer {
+    font-size: 7px;
+    letter-spacing: 0.12em;
+    text-align: center;
+    padding: 0 8px;
+  }
+
+  .cd-header-text {
+    font-size: 8px;
+    letter-spacing: 0.15em;
+    text-align: center;
+  }
+
+  .cd-header-tick {
+    width: 16px;
+  }
+}

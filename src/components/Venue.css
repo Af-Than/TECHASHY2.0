@@ -1,0 +1,333 @@
+/* ══════════════════════════════════════════════════════════
+   VENUE  –  Ground Zero
+   Matches Timeline / About design language
+══════════════════════════════════════════════════════════ */
+
+.vn-section {
+  position: relative;
+  background: #080808;
+  padding: 110px 0 130px;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* Horizontal scanlines atmosphere */
+.vn-scanlines {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    180deg,
+    transparent,
+    transparent 5px,
+    rgba(255, 255, 255, 0.012) 5px,
+    rgba(255, 255, 255, 0.012) 6px
+  );
+  pointer-events: none;
+}
+
+.vn-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+.vn-header {
+  margin-bottom: 80px;
+}
+
+.vn-eyebrow {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
+  color: #DC143C;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  font-family: 'Courier New', monospace;
+}
+
+.vn-title {
+  font-family: 'Iceberg', sans-serif;
+  font-weight: normal;
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  color: #fff;
+  letter-spacing: 0.1em;
+  line-height: 0.9;
+  margin: 0 0 24px;
+  text-shadow: 0 0 40px rgba(220, 20, 60, 0.25);
+}
+
+.vn-slash {
+  color: #DC143C;
+  margin-right: 4px;
+}
+
+.vn-sub {
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.42);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  position: relative;
+  padding-left: 28px;
+  margin: 0;
+}
+
+.vn-sub::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 2px;
+  background: #DC143C;
+}
+
+/* ── Two-column grid ────────────────────────────────────── */
+.vn-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  align-items: start;
+}
+
+/* ── Info side ──────────────────────────────────────────── */
+.vn-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.vn-info-card {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-left: none;
+  padding: 32px 32px 32px 36px;
+  background: rgba(255, 255, 255, 0.016);
+  transition: border-color 0.3s, background 0.3s;
+}
+
+/* Red left accent bar */
+.vn-info-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #DC143C;
+  box-shadow: 0 0 12px rgba(220, 20, 60, 0.7), 0 0 28px rgba(220, 20, 60, 0.3);
+}
+
+.vn-info-card:hover {
+  border-color: rgba(220, 20, 60, 0.25);
+  background: rgba(220, 20, 60, 0.03);
+}
+
+.vn-info-tag {
+  display: block;
+  font-family: 'Courier New', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.35em;
+  color: #DC143C;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.vn-institution {
+  font-family: 'Iceberg', sans-serif;
+  font-weight: normal;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: #ffffff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0 0 10px;
+  line-height: 1.25;
+}
+
+.vn-city {
+  display: block;
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  color: rgba(255, 255, 255, 0.38);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+.vn-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.07);
+  margin-bottom: 22px;
+}
+
+.vn-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.vn-meta-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #DC143C;
+  box-shadow: 0 0 8px rgba(220, 20, 60, 0.8);
+  flex-shrink: 0;
+}
+
+.vn-meta-text {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.52);
+  text-transform: uppercase;
+}
+
+.vn-directions-btn {
+  display: inline-block;
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  color: #DC143C;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(220, 20, 60, 0.4);
+  padding-bottom: 2px;
+  transition: border-color 0.3s, color 0.3s;
+}
+
+.vn-directions-btn:hover {
+  color: #ff3355;
+  border-color: #ff3355;
+}
+
+/* ── Schedule list ──────────────────────────────────────── */
+.vn-schedule {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.vn-schedule-item {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background 0.2s, padding-left 0.2s;
+}
+
+.vn-schedule-item:last-child {
+  border-bottom: none;
+}
+
+.vn-schedule-item:hover {
+  background: rgba(220, 20, 60, 0.045);
+  padding-left: 4px;
+}
+
+.vn-sched-time {
+  font-family: 'Courier New', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  color: #DC143C;
+  min-width: 72px;
+  flex-shrink: 0;
+}
+
+.vn-sched-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.55);
+  text-transform: uppercase;
+}
+
+.vn-info-card:hover .vn-sched-label {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* ── Map side ───────────────────────────────────────────── */
+.vn-map-wrap {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  overflow: hidden;
+}
+
+/* Corner cross-hair marks */
+.vn-map-corner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.vn-map-corner::before,
+.vn-map-corner::after {
+  content: '';
+  position: absolute;
+  background: #DC143C;
+}
+
+.vn-map-corner::before { width: 100%; height: 1.5px; top: 0; left: 0; }
+.vn-map-corner::after  { width: 1.5px; height: 100%; top: 0; left: 0; }
+
+.vn-map-corner--tl { top: 0;    left: 0; }
+.vn-map-corner--tr { top: 0;    right: 0; transform: scaleX(-1); }
+.vn-map-corner--bl { bottom: 0; left: 0;  transform: scaleY(-1); }
+.vn-map-corner--br { bottom: 0; right: 0; transform: scale(-1); }
+
+.vn-map-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  filter: grayscale(1) invert(0.88) sepia(0.25) hue-rotate(175deg) brightness(0.65) contrast(1.15);
+  transition: filter 0.4s ease;
+}
+
+.vn-map-wrap:hover .vn-map-iframe {
+  filter: grayscale(0.5) invert(0.75) sepia(0.15) hue-rotate(155deg) brightness(0.72) contrast(1.1);
+}
+
+/* Subtle crimson tint overlay */
+.vn-map-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(220, 20, 60, 0.04);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .vn-content {
+    grid-template-columns: 1fr;
+  }
+
+  .vn-map-wrap {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (max-width: 768px) {
+  .vn-wrap {
+    padding: 0 24px;
+  }
+}
+
+@media (max-width: 520px) {
+  .vn-info-card {
+    padding: 24px 20px 24px 28px;
+  }
+}

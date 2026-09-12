@@ -1,0 +1,16 @@
+services:
+  techashy-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: techashy-frontend
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+      - /app/node_modules
+      - /app/.next

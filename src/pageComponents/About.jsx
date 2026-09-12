@@ -138,14 +138,14 @@ export default function About() {
 
   return (
     <section className="ab-section" id="about" ref={sectionRef}>
-      {/* Decorative Pagoda Blossom Silhouette (Transparent) */}
+      {/* Decorative Pagoda Blossom Silhouette — now left-anchored and full-height */}
       <div className="ab-decorative-bg" aria-hidden="true">
         <Image
           src="/pictures/pagoda-blossoms-nobg.png"
           alt="Pagoda artwork"
-          width={400}
-          height={600}
+          fill
           className="ab-pagoda-img"
+          style={{ objectFit: "cover", objectPosition: "right center" }}
         />
       </div>
 

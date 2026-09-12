@@ -8,9 +8,9 @@ import "./Navbar.css";
 
 const navItems = [
   { label: "ABOUT", link: "#about", sectionId: "about" },
-  { label: "TIMELINE", link: "#timeline", sectionId: "timeline" },
   { label: "TRACKS", link: "#tracks", sectionId: "tracks" },
   { label: "PRIZES", link: "#prizes", sectionId: "prizes" },
+  { label: "TIMELINE", link: "#timeline", sectionId: "timeline" },
   { label: "VENUE", link: "#venue", sectionId: "venue" },
   { label: "FAQ", link: "#faq", sectionId: "faq" },
   { label: "CONTACTS", link: "#footer", sectionId: "footer" },

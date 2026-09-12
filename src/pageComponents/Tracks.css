@@ -5,6 +5,26 @@
   overflow: hidden;
 }
 
+/* Wave — right side, tall & prominent, same treatment as pagoda */
+.tr-decorative-wave {
+  position: absolute;
+  top: 0;
+  right: -3%;
+  width: 480px;
+  height: 100%;
+  opacity: 0.18;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: contrast(1.3) brightness(1.1);
+}
+
+.tr-wave-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left center;
+}
+
 .tr-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -23,7 +43,6 @@
   gap: 24px;
 }
 
-/* 7th item spans full or sits centered */
 .tr-card:last-child {
   grid-column: span 1;
 }
@@ -141,6 +160,11 @@
   .tr-card:last-child {
     grid-column: 1 / -1;
   }
+  .tr-decorative-wave {
+    width: 320px;
+    opacity: 0.12;
+    right: -8%;
+  }
 }
 
 @media (max-width: 640px) {
@@ -152,5 +176,10 @@
   }
   .tr-section {
     padding: 70px 16px;
+  }
+  .tr-decorative-wave {
+    width: 200px;
+    opacity: 0.08;
+    right: -10%;
   }
 }

@@ -32,10 +32,10 @@ const montserrat = Montserrat({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://tekashi.betalabs.tech"),
-  title: "TEKASHI 2.0 - Premier Technology Hackathon | Forged in 24 Hours",
-  description: "Join TEKASHI 2.0, a premier East-Asian inspired technology hackathon powered by Betalabs at IIIT Kottayam. 24 hours of relentless innovation, ₹80,808+ prize pool.",
-  keywords: ["TEKASHI 2.0", "Tekashi Hackathon", "Betalabs", "IIIT Kottayam", "Hackathon", "Coding Competition", "Innovation", "Technology"],
+  metadataBase: new URL("https://techashy.betalabs.tech"),
+  title: "TECHASHY - Premier Technology Hackathon | Forged in 24 Hours",
+  description: "Join TECHASHY, a premier East-Asian inspired technology hackathon powered by Betalabs at IIIT Kottayam. 24 hours of relentless innovation, ₹80,808+ prize pool.",
+  keywords: ["TECHASHY", "Techashy Hackathon", "Betalabs", "IIIT Kottayam", "Hackathon", "Coding Competition", "Innovation", "Technology"],
   authors: [{ name: "Betalabs" }],
   creator: "Betalabs",
   publisher: "Betalabs",
@@ -45,17 +45,17 @@ export const metadata = {
     apple: "/Techashi_Logo-removebg-preview.png",
   },
   openGraph: {
-    title: "TEKASHI 2.0 - Premier Technology Hackathon",
-    description: "Join TEKASHI 2.0, a premier technology hackathon powered by Betalabs. 24 hours of relentless innovation, ₹80,808 in prizes.",
-    siteName: 'TEKASHI 2.0',
+    title: "TECHASHY - Premier Technology Hackathon",
+    description: "Join TECHASHY, a premier technology hackathon powered by Betalabs. 24 hours of relentless innovation, ₹80,808 in prizes.",
+    siteName: 'TECHASHY',
     locale: 'en_US',
     type: 'website',
-    images: [{ url: "/pictures/hero-mountains.jpg", width: 1200, height: 630, alt: "TEKASHI 2.0 Hackathon" }],
+    images: [{ url: "/pictures/hero-mountains.jpg", width: 1200, height: 630, alt: "TECHASHY Hackathon" }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: "TEKASHI 2.0 - Premier Technology Hackathon",
-    description: "Join TEKASHI 2.0 powered by Betalabs. Connect with innovators, build groundbreaking projects in 24 hours.",
+    title: "TECHASHY - Premier Technology Hackathon",
+    description: "Join TECHASHY powered by Betalabs. Connect with innovators, build groundbreaking projects in 24 hours.",
     images: ["/pictures/hero-mountains.jpg"],
   },
   robots: {

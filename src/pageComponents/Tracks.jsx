@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Tracks.css";
@@ -75,7 +76,6 @@ export default function Tracks() {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Header animation
       const headerEls = headerRef.current?.querySelectorAll(
         ".section-header-tag, .section-heading-main, .section-subtitle-text"
       );
@@ -97,7 +97,6 @@ export default function Tracks() {
         });
       }
 
-      // Cards animation
       const cards = gridRef.current?.querySelectorAll(".tr-card");
       if (cards?.length) {
         gsap.set(cards, { y: 40, opacity: 0 });
@@ -123,6 +122,18 @@ export default function Tracks() {
 
   return (
     <section className="tr-section" id="tracks" ref={sectionRef}>
+
+      {/* Wave decorative — right side */}
+      <div className="tr-decorative-wave" aria-hidden="true">
+        <Image
+          src="/pictures/WAVE.png"
+          alt="Wave artwork"
+          fill
+          className="tr-wave-img"
+          style={{ objectFit: "cover", objectPosition: "left center" }}
+        />
+      </div>
+
       <div className="tr-container">
         {/* Header */}
         <div className="tr-header" ref={headerRef}>
@@ -137,7 +148,6 @@ export default function Tracks() {
         <div className="tr-grid" ref={gridRef}>
           {tracks.map((t) => (
             <div key={t.num} className="tr-card asian-frame">
-              {/* Background Kanji Watermark */}
               <span className="tr-watermark" aria-hidden="true">
                 {t.kanji}
               </span>

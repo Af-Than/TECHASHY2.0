@@ -245,7 +245,7 @@ export default function Prizes() {
             <h4 className="pr-cert-title font-cinzel">ALL PARTICIPANTS</h4>
             <p className="pr-cert-text">
               Every warrior who steps into the arena and submits a verified project receives an official{" "}
-              <strong>TEKASHI 2.0</strong> Certificate of Participation from Betalabs & IIIT Kottayam.
+              <strong>TECHASHY</strong> Certificate of Participation from Betalabs & IIIT Kottayam.
             </p>
           </div>
         </div>

@@ -126,7 +126,7 @@ export default function Tracks() {
       {/* Wave decorative — right side */}
       <div className="tr-decorative-wave" aria-hidden="true">
         <Image
-          src="/pictures/WAVE.png"
+          src="/NEW%20PICS/WAVE.png"
           alt="Wave artwork"
           fill
           className="tr-wave-img"

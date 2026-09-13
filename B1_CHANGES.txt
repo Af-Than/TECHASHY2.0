@@ -1,0 +1,75 @@
+TECHASHY B1 CHANGE REPORT
+==========================
+
+Generated: 2026-09-13
+
+BRANCH COMPARISON
+-----------------
+Current branch: b1
+b1 commit:      cef2b58
+main commit:    cef2b58
+
+The b1 and main branch references currently point to the same commit. The
+changes listed below are present as uncommitted working-tree changes on b1,
+so `git diff main..b1` is empty until these changes are committed.
+
+LATEST CHANGE
+-------------
+- Added a second large decorative wave in the top-right of the Tracks section.
+- The top-right artwork uses public/NEW PICS/WAVES.png, matching the supplied
+  red koi-wave image.
+- Kept public/NEW PICS/WAVE.png as the large left-side Tracks artwork.
+- Added responsive sizing, positioning, fading masks, and layered background
+  treatment for both wave artworks.
+- Corrected the left wave height from an accidental 23000px value to a
+  controlled responsive height.
+
+TRACKS
+------
+- Track topics are hidden while locked and display as ???.
+- Track tags display CLASSIFIED.
+- Added a persistent TRACK LOCKED / REVEAL SOON overlay.
+- Made every track card clickable and keyboard accessible.
+- Added a classified mini detail dialog for each track card.
+- Preserved the original track data for future topic reveals.
+
+NAVBAR
+------
+- Added a gold scroll-progress border around the navbar.
+- Progress updates from 0% to 100% as the page is scrolled.
+- Added accessible progressbar attributes.
+- Kept navbar links above the progress layer.
+
+SPONSORS
+--------
+- Platinum sponsor cards are larger and receive stronger visual priority.
+- Platinum sponsor logos are larger than Gold and Apparel sponsor logos.
+- Secondary sponsor tiers use compact card/logo sizing.
+
+EVENT DATE
+----------
+- Updated the countdown target to October 10, 2026.
+- Updated visible date references in the hero, Venue, and FAQ content.
+
+PRIZES AND BACKGROUNDS
+----------------------
+- Added transparent GATE.png artwork to the Prizes section.
+- Removed the footer bottom-right koi-wave watermark.
+
+PAST HACKATHON GALLERY
+----------------------
+- Added a previous-hackathon photo slider section.
+- Added previous/next controls and horizontal scroll behavior.
+- Added responsive gallery styling using the existing public image assets.
+
+FILES ADDED
+-----------
+- B1_CHANGES.txt
+- src/pageComponents/Memories.jsx
+- src/pageComponents/Memories.css
+- public/NEW PICS/GATE.png
+
+VALIDATION
+----------
+- Focused ESLint check for Tracks.jsx passes.
+- Production build previously passed after the related UI changes.

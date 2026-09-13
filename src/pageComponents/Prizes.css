@@ -5,6 +5,15 @@
   overflow: hidden;
 }
 
+.pr-gate-art {
+  position: absolute;
+  inset: 0;
+  background: url('/NEW%20PICS/GATE.png') center / min(900px, 90vw) auto no-repeat;
+  opacity: 0.13;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
 .pr-container {
   max-width: 1160px;
   margin: 0 auto;

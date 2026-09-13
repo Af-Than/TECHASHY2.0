@@ -5,25 +5,46 @@
   overflow: hidden;
 }
 
-/* Wave — right side, tall & prominent, same treatment as pagoda */
+/* Red wave artwork: preserve its shape and let it dissolve into the section. */
 .tr-decorative-wave {
   position: absolute;
-  top: 0;
-  right: -3%;
-  width: 480px;
-  height: 100%;
-  opacity: 0.065;
+  left: -4%;
+  bottom: -40px;
+  width: min(620px, 44vw);
+  height: min(980px, 92vw);
+  opacity: 0.2;
   pointer-events: none;
-  filter: grayscale(1) sepia(0.8) saturate(1.8) hue-rotate(315deg) brightness(0.55) contrast(0.9);
+  filter: grayscale(0.2) sepia(0.8) saturate(2.3) hue-rotate(315deg) brightness(0.58) contrast(1.08);
+  -webkit-mask-image: linear-gradient(to right, #000 62%, transparent 100%), linear-gradient(to top, #000 72%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, #000 62%, transparent 100%), linear-gradient(to top, #000 72%, transparent 100%);
+  mask-composite: intersect;
+  z-index: 0;
 }
 
 .tr-wave-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: left center;
+  object-fit: contain;
+  object-position: left bottom;
 }
 
+.tr-decorative-wave--top-right {
+  top: -34px;
+  right: -3%;
+  left: auto;
+  bottom: auto;
+  width: min(480px, 36vw);
+  height: min(560px, 54vw);
+  opacity: 0.17;
+  transform: scaleX(-1) rotate(2deg);
+  -webkit-mask-image: linear-gradient(to left, #000 58%, transparent 100%), linear-gradient(to bottom, #000 76%, transparent 100%);
+  mask-image: linear-gradient(to left, #000 58%, transparent 100%), linear-gradient(to bottom, #000 76%, transparent 100%);
+}
+
+.tr-decorative-wave--top-right .tr-wave-img {
+  object-position: right top;
+}
 .tr-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -62,6 +83,7 @@
   transition: all 0.35s ease;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 }
 
 .tr-card:hover {
@@ -69,6 +91,53 @@
   background: rgba(35, 12, 17, 0.95);
   border-color: rgba(216, 185, 120, 0.65);
   box-shadow: 0 14px 35px rgba(0, 0, 0, 0.85), 0 0 20px rgba(158, 24, 37, 0.3);
+}
+
+.tr-lock-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: linear-gradient(135deg, rgba(8, 4, 4, 0.78), rgba(74, 14, 22, 0.62));
+  opacity: 0.92;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.tr-card:hover .tr-lock-overlay,
+.tr-card:focus-within .tr-lock-overlay {
+  opacity: 1;
+}
+
+.tr-lock-icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid #D8B978;
+  border-radius: 50%;
+  color: #D8B978;
+  font-family: var(--font-asian);
+  font-size: 22px;
+  box-shadow: 0 0 24px rgba(216, 185, 120, 0.24);
+}
+
+.tr-lock-label {
+  color: #FFF1D0;
+  font-family: 'YoungSerif', Georgia, serif;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+}
+
+.tr-lock-caption {
+  color: #D8B978;
+  font-family: 'YoungSerif', Georgia, serif;
+  font-size: 9px;
+  letter-spacing: 0.28em;
 }
 
 .tr-watermark {
@@ -160,8 +229,17 @@
     grid-column: 1 / -1;
   }
   .tr-decorative-wave {
-    width: 320px;
-    opacity: 0.12;
+    width: min(460px, 58vw);
+    height: min(760px, 92vw);
+    opacity: 0.17;
+    left: -8%;
+    bottom: -30px;
+  }
+
+  .tr-decorative-wave--top-right {
+    width: min(360px, 48vw);
+    height: min(430px, 62vw);
+    top: -20px;
     right: -8%;
   }
 }
@@ -177,8 +255,113 @@
     padding: 70px 16px;
   }
   .tr-decorative-wave {
-    width: 200px;
-    opacity: 0.08;
-    right: -10%;
+    width: 350px;
+    height: 620px;
+    opacity: 0.15;
+    left: -18%;
+    bottom: -24px;
   }
+
+  .tr-decorative-wave--top-right {
+    width: 250px;
+    height: 310px;
+    top: -10px;
+    right: -18%;
+  }
+}
+
+.tr-card:has(.tr-lock-overlay) .tr-title {
+  color: #D8B978;
+  font-size: 32px;
+  letter-spacing: 0.18em;
+  text-align: center;
+  margin: 12px 0 18px;
+}
+
+.tr-card:has(.tr-lock-overlay) .tr-desc {
+  color: rgba(216, 185, 120, 0.72);
+  font-family: 'YoungSerif', Georgia, serif;
+  font-size: 22px;
+  letter-spacing: 0.28em;
+  line-height: 1;
+  text-align: center;
+}
+
+.tr-card:focus-visible {
+  outline: 2px solid #D8B978;
+  outline-offset: 4px;
+}
+
+.tr-mini-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(8, 2, 1, 0.78);
+  backdrop-filter: blur(8px);
+}
+
+.tr-mini-card {
+  position: relative;
+  width: min(420px, 100%);
+  padding: 34px 30px 30px;
+  text-align: center;
+  background: linear-gradient(145deg, rgba(42, 10, 15, 0.98), rgba(18, 7, 8, 0.98));
+  border-color: rgba(216, 185, 120, 0.7);
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.8), 0 0 35px rgba(158, 24, 37, 0.28);
+}
+
+.tr-mini-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(216, 185, 120, 0.4);
+  border-radius: 50%;
+  background: transparent;
+  color: #D8B978;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.tr-mini-kicker,
+.tr-mini-status {
+  display: block;
+  color: #D8B978;
+  font-family: 'YoungSerif', Georgia, serif;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+}
+
+.tr-mini-kanji {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  margin: 22px auto 14px;
+  border: 1px solid #D8B978;
+  border-radius: 50%;
+  color: #D8B978;
+  font-family: var(--font-asian);
+  font-size: 25px;
+}
+
+.tr-mini-card h3 {
+  color: #FFF1D0;
+  font-family: 'Shuriken', 'Gang of Three', serif;
+  font-size: 25px;
+  letter-spacing: 0.08em;
+}
+
+.tr-mini-card p {
+  margin: 10px auto 20px;
+  max-width: 280px;
+  color: #D1C29E;
+  font-family: 'YoungSerif', Georgia, serif;
+  font-size: 15px;
+  line-height: 1.5;
 }

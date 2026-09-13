@@ -63,6 +63,29 @@
   transition: all 0.3s ease;
 }
 
+.sp-card--platinum {
+  min-height: 190px;
+  padding: 32px;
+  gap: 28px;
+  border-color: rgba(230, 57, 70, 0.42);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35), 0 0 24px rgba(158, 24, 37, 0.12);
+}
+
+.sp-card--platinum .sp-logo-box {
+  width: 132px;
+  height: 132px;
+  padding: 14px;
+}
+
+.sp-card--platinum .sp-name {
+  font-size: 23px;
+}
+
+.sp-card--secondary .sp-logo-box {
+  width: 76px;
+  height: 76px;
+}
+
 .sp-card:hover {
   transform: translateY(-4px);
   border-color: rgba(216, 185, 120, 0.6);

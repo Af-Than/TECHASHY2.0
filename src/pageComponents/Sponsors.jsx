@@ -105,7 +105,7 @@ export default function Sponsors() {
           <span className="section-header-tag">ALLIES & PATRONS</span>
           <h2 className="section-heading-main">SPONSORS & PARTNERS</h2>
           <p className="section-subtitle-text">
-            The esteemed organizations powering TEKASHI 2.0.
+            The esteemed organizations powering TECHASHY 2.0.
           </p>
         </div>
 
@@ -118,7 +118,7 @@ export default function Sponsors() {
 
           <div className="sp-grid sp-grid--two">
             {platinum.map((s, i) => (
-              <div key={i} className="sp-card asian-frame">
+              <div key={i} className="sp-card sp-card--platinum asian-frame">
                 <div className="sp-logo-box">
                   <img src={s.img} alt={s.name} className="sp-logo-img" />
                 </div>
@@ -141,7 +141,7 @@ export default function Sponsors() {
             </div>
             <div className="sp-grid">
               {gold.map((s, i) => (
-                <div key={i} className="sp-card asian-frame">
+                <div key={i} className="sp-card sp-card--secondary asian-frame">
                   <div className="sp-logo-box">
                     <img src={s.img} alt={s.name} className="sp-logo-img" />
                   </div>
@@ -162,7 +162,7 @@ export default function Sponsors() {
             </div>
             <div className="sp-grid">
               {clothing.map((s, i) => (
-                <div key={i} className="sp-card asian-frame">
+                <div key={i} className="sp-card sp-card--secondary asian-frame">
                   <div className="sp-logo-box">
                     <img src={s.img} alt={s.name} className="sp-logo-img" />
                   </div>
@@ -180,7 +180,7 @@ export default function Sponsors() {
         <div className="sp-cta-box asian-frame" ref={ctaRef}>
           <div className="sp-cta-text">
             <h4 className="font-cinzel text-lg md:text-xl text-[#FFF1D0]">
-              Interested in supporting TEKASHI 2.0?
+              Interested in supporting TECHASHY 2.0?
             </h4>
             <p className="text-sm text-[#D1C29E]">
               Partner with the next generation of visionary engineers and builders.

@@ -99,7 +99,7 @@ export default function Venue() {
 
               <div className="vn-meta">
                 <span className="vn-meta-icon">⛩</span>
-                <span>March 14 – 15, 2026</span>
+                <span>October 10, 2026</span>
               </div>
 
               <a

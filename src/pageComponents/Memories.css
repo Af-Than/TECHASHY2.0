@@ -1,0 +1,97 @@
+.mm-section {
+  position: relative;
+  padding: 100px 20px;
+  background: linear-gradient(180deg, #0c0201 0%, #160709 100%);
+  overflow: hidden;
+}
+
+.mm-container {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.mm-heading-row {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 42px;
+}
+
+.mm-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.mm-control {
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(216, 185, 120, 0.45);
+  border-radius: 50%;
+  background: rgba(18, 7, 8, 0.85);
+  color: #D8B978;
+  font-size: 22px;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.mm-control:hover {
+  background: #9E1825;
+  color: #FFF1D0;
+  transform: translateY(-2px);
+}
+
+.mm-rail {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 4px 2px 20px;
+  scroll-snap-type: x mandatory;
+  scrollbar-color: #9E1825 rgba(216, 185, 120, 0.12);
+  scrollbar-width: thin;
+}
+
+.mm-card {
+  position: relative;
+  flex: 0 0 clamp(260px, 31vw, 360px);
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  scroll-snap-align: start;
+  background: #120708;
+}
+
+.mm-image {
+  object-fit: cover;
+  transition: transform 0.5s ease, filter 0.5s ease;
+  filter: saturate(0.82) contrast(1.05);
+}
+
+.mm-card:hover .mm-image {
+  transform: scale(1.05);
+  filter: saturate(1) contrast(1.08);
+}
+
+.mm-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(8, 4, 4, 0.82));
+  pointer-events: none;
+}
+
+.mm-card figcaption {
+  position: absolute;
+  z-index: 1;
+  left: 18px;
+  bottom: 14px;
+  color: #D8B978;
+  font-family: 'YoungSerif', Georgia, serif;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+}
+
+@media (max-width: 640px) {
+  .mm-section { padding: 70px 16px; }
+  .mm-heading-row { align-items: start; flex-direction: column; }
+  .mm-controls { align-self: end; }
+}

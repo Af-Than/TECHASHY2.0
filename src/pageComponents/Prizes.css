@@ -169,7 +169,14 @@
   padding: 26px 30px;
   border-radius: 12px;
   background: rgba(26, 10, 14, 0.85);
-  border: 1px solid rgba(216, 185, 120, 0.3);
+  border: 1px solid rgba(216, 185, 120, 0.72);
+  box-shadow: 0 14px 42px rgba(0, 0, 0, 0.72), 0 0 28px rgba(230, 57, 70, 0.32), 0 0 58px rgba(216, 185, 120, 0.16);
+  animation: pr-agentic-glow 3.8s ease-in-out infinite;
+}
+
+@keyframes pr-agentic-glow {
+  0%, 100% { box-shadow: 0 14px 42px rgba(0, 0, 0, 0.72), 0 0 28px rgba(230, 57, 70, 0.28), 0 0 58px rgba(216, 185, 120, 0.12); }
+  50% { box-shadow: 0 16px 48px rgba(0, 0, 0, 0.78), 0 0 38px rgba(230, 57, 70, 0.48), 0 0 72px rgba(216, 185, 120, 0.24); }
 }
 
 .pr-special-top {

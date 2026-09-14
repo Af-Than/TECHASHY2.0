@@ -119,11 +119,16 @@ export default function Sponsors() {
           <div className="sp-grid sp-grid--two">
             {platinum.map((s, i) => (
               <div key={i} className="sp-card sp-card--platinum asian-frame">
+                <div className="sp-lock-overlay" aria-label="Sponsor to be declared">
+                  <span className="sp-lock-icon" aria-hidden="true">锁</span>
+                  <span className="sp-lock-label">TO BE DECLARED</span>
+                  <span className="sp-lock-caption">SPONSOR</span>
+                </div>
                 <div className="sp-logo-box">
-                  <img src={s.img} alt={s.name} className="sp-logo-img" />
+                  <img src="/pictures/TO BE DECLARED.webp" alt="Sponsor to be declared" className="sp-logo-img" />
                 </div>
                 <div className="sp-info">
-                  <h3 className="sp-name font-cinzel">{s.name}</h3>
+                  <h3 className="sp-name font-cinzel">TO BE DECLARED</h3>
                   <span className="sp-tag font-bebas">{s.tag}</span>
                 </div>
               </div>
@@ -142,11 +147,16 @@ export default function Sponsors() {
             <div className="sp-grid">
               {gold.map((s, i) => (
                 <div key={i} className="sp-card sp-card--secondary asian-frame">
+                  <div className="sp-lock-overlay" aria-label="Sponsor to be declared">
+                    <span className="sp-lock-icon" aria-hidden="true">锁</span>
+                    <span className="sp-lock-label">TO BE DECLARED</span>
+                    <span className="sp-lock-caption">SPONSOR</span>
+                  </div>
                   <div className="sp-logo-box">
-                    <img src={s.img} alt={s.name} className="sp-logo-img" />
+                  <img src="/pictures/TO BE DECLARED.webp" alt="Sponsor to be declared" className="sp-logo-img" />
                   </div>
                   <div className="sp-info">
-                    <h3 className="sp-name font-cinzel">{s.name}</h3>
+                  <h3 className="sp-name font-cinzel">TO BE DECLARED</h3>
                     <span className="sp-tag font-bebas">{s.tag}</span>
                   </div>
                 </div>
@@ -163,11 +173,16 @@ export default function Sponsors() {
             <div className="sp-grid">
               {clothing.map((s, i) => (
                 <div key={i} className="sp-card sp-card--secondary asian-frame">
+                  <div className="sp-lock-overlay" aria-label="Sponsor to be declared">
+                    <span className="sp-lock-icon" aria-hidden="true">锁</span>
+                    <span className="sp-lock-label">TO BE DECLARED</span>
+                    <span className="sp-lock-caption">SPONSOR</span>
+                  </div>
                   <div className="sp-logo-box">
-                    <img src={s.img} alt={s.name} className="sp-logo-img" />
+                  <img src="/pictures/TO BE DECLARED.webp" alt="Sponsor to be declared" className="sp-logo-img" />
                   </div>
                   <div className="sp-info">
-                    <h3 className="sp-name font-cinzel">{s.name}</h3>
+                  <h3 className="sp-name font-cinzel">TO BE DECLARED</h3>
                     <span className="sp-tag font-bebas">{s.tag}</span>
                   </div>
                 </div>

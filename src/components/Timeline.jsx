@@ -114,6 +114,7 @@ export default function Timeline() {
         ...event,
         status: statuses[index],
         isNext: index === nextIndex,
+        isLocked: index > 0,
       };
     });
   }, []);
@@ -209,12 +210,19 @@ export default function Timeline() {
               </div>
 
               {/* Plaque Card */}
-              <div className="tl-card asian-frame">
+              <div className={`tl-card asian-frame ${e.isLocked ? "tl-card--locked" : ""}`}>
+                {e.isLocked && (
+                  <div className="tl-lock-overlay" aria-label="Timeline event locked">
+                    <span className="tl-lock-icon" aria-hidden="true">锁</span>
+                    <span className="tl-lock-label">TIMELINE LOCKED</span>
+                    <span className="tl-lock-caption">TO BE DECLARED</span>
+                  </div>
+                )}
                 <div className="tl-card-top">
                   <div className="tl-date-badge font-bebas">
-                    <span className="tl-month">{e.month}</span>
-                    <span className="tl-day">{e.day}</span>
-                    <span className="tl-year">{e.year}</span>
+                    <span className="tl-year">DATE</span>
+                    <span className="tl-month">TO BE</span>
+                    <span className="tl-month">DECLARED</span>
                   </div>
 
                   <div className="tl-status-badges">

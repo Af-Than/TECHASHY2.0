@@ -13,7 +13,7 @@ const intel = [
     index: "01",
     label: "DIRECTIVE",
     heading: "Our Mission",
-    body: "TEKASHI 2.0 exists to turn pressure into product. We compress months of ideation into 24 relentless hours — forcing decisions, demanding output, rewarding execution.",
+    body: "TECHASHY 2.0 exists to turn pressure into product. We compress months of ideation into 24 relentless hours — forcing decisions, demanding output, rewarding execution.",
   },
   {
     index: "02",
@@ -153,7 +153,7 @@ export default function About() {
         {/* Header */}
         <div className="ab-header" ref={headerRef}>
           <span className="section-header-tag">THE INITIATIVE</span>
-          <h2 className="section-heading-main">ABOUT TEKASHI 2.0</h2>
+          <h2 className="section-heading-main">ABOUT TECHASHY 2.0</h2>
           <p className="section-subtitle-text">
             &ldquo;A crucible for relentless creators, coders, and architects.&rdquo;
           </p>

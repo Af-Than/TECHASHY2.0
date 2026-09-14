@@ -9,6 +9,7 @@ import About from "../pageComponents/About";
 import Tracks from "../pageComponents/Tracks";
 import Prizes from "../pageComponents/Prizes";
 import Sponsors from "../pageComponents/Sponsors";
+import Memories from "../pageComponents/Memories";
 import Timeline from "../components/Timeline";
 import Venue from "../components/Venue";
 import FAQ from "@/components/FAQ";
@@ -128,9 +129,9 @@ export default function Home() {
   useEffect(() => {
     const calc = () => {
       const now = new Date();
-      let target = new Date(2026, 2, 14, 15, 0, 0);
+      let target = new Date(2026, 9, 10, 15, 0, 0);
       if (target <= now) {
-        target = new Date(now.getFullYear(), 9, 24, 15, 0, 0);
+        target = new Date(now.getFullYear() + 1, 9, 10, 15, 0, 0);
         if (target <= now) {
           target = new Date(now.getTime() + (24 * 86400000 + 8 * 3600000 + 42 * 60000));
         }
@@ -178,7 +179,7 @@ export default function Home() {
         >
           <img
             src="/pictures/hero-landscape-clean.jpg"
-            alt="TEKASHI 2.0 Mountain Landscape"
+            alt="TECHASHY 2.0 Mountain Landscape"
             className="w-full h-full object-cover object-center select-none"
             style={{ filter: "brightness(0.72) contrast(1.08) saturate(1.1)" }}
           />
@@ -341,7 +342,7 @@ export default function Home() {
               fontWeight: 300,
             }}
           >
-            <span>March 14 – 15, 2026</span>
+            <span>October 10, 2026</span>
             <span style={{ color: "#9E1825", fontSize: "8px" }}>✦</span>
             <span>03:00 PM IST</span>
             <span style={{ color: "#9E1825", fontSize: "8px" }}>✦</span>
@@ -382,6 +383,7 @@ export default function Home() {
       <Venue />
       <FAQ />
       <Sponsors />
+      <Memories />
       <Footer />
     </div>
   );

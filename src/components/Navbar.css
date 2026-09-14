@@ -16,6 +16,8 @@
 }
 
 .tekashi-nav-pill {
+  position: relative;
+  isolation: isolate;
   pointer-events: auto;
   display: flex;
   align-items: center;
@@ -31,6 +33,26 @@
   max-width: 920px;
   width: auto;
   transition: all 0.3s ease;
+}
+
+.tekashi-nav-progress {
+  position: absolute;
+  inset: -2px;
+  z-index: 0;
+  border-radius: inherit;
+  background: conic-gradient(from -90deg, #D8B978 var(--scroll-progress, 0deg), rgba(216, 185, 120, 0.14) 0deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  padding: 2px;
+  pointer-events: none;
+  filter: drop-shadow(0 0 5px rgba(216, 185, 120, 0.5));
+}
+
+.tekashi-nav-pill > *:not(.tekashi-nav-progress) {
+  position: relative;
+  z-index: 1;
 }
 
 .tekashi-nav-wrapper.scrolled .tekashi-nav-pill {

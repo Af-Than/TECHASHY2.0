@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef, useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -43,17 +42,6 @@ export default function Footer() {
 
   return (
     <footer className="ft-section" id="footer" ref={footerRef}>
-      {/* Decorative Wave & Koi Watermark Asset (Transparent) */}
-      <div className="ft-koi-bg" aria-hidden="true">
-        <Image
-          src="/pictures/koi-waves-nobg.png"
-          alt="Traditional Japanese Koi Wave"
-          width={320}
-          height={400}
-          className="ft-koi-img"
-        />
-      </div>
-
       <div className="ft-container">
         {/* Top Traditional Divider */}
         <div className="traditional-divider">
@@ -70,7 +58,7 @@ export default function Footer() {
               <span className="hanko-seal" style={{ width: "30px", height: "30px", fontSize: "13px" }}>
                 極
               </span>
-              <span className="ft-logo-text font-gang">TEKASHI 2.0</span>
+              <span className="ft-logo-text font-gang">TECHASHY 2.0</span>
             </div>
 
             <p className="ft-tagline font-bebas">FORGED IN 24 HOURS.</p>
@@ -140,7 +128,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="ft-bottom-bar">
           <p className="ft-copyright">
-            &copy; {new Date().getFullYear()} TEKASHI 2.0. All rights reserved.
+            &copy; {new Date().getFullYear()} TECHASHY 2.0. All rights reserved.
           </p>
           <p className="ft-powered">
             Forged with honor by <span className="text-[#E63946] font-semibold">Betalabs</span>

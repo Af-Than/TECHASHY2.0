@@ -39,6 +39,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [scrolled, setScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const [mounted, setMounted] = useState(false);
   const observerRef = useRef(null);
 
@@ -54,7 +55,13 @@ export default function Navbar() {
   }, [isOpen]);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 25);
+    const onScroll = () => {
+      const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollableHeight > 0 ? window.scrollY / scrollableHeight : 0;
+      setScrolled(window.scrollY > 25);
+      setScrollProgress(Math.min(1, Math.max(0, progress)));
+    };
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
 
     const sectionIds = navItems.map((m) => m.sectionId);
@@ -156,7 +163,18 @@ export default function Navbar() {
   return (
     <>
       <header className={`tekashi-nav-wrapper ${scrolled ? "scrolled" : ""}`}>
-        <nav className="tekashi-nav-pill">
+        <nav
+          className="tekashi-nav-pill"
+          style={{ "--scroll-progress": `${scrollProgress * 360}deg` }}
+        >
+          <span
+            className="tekashi-nav-progress"
+            role="progressbar"
+            aria-label="Page scroll progress"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow={Math.round(scrollProgress * 100)}
+          />
           {/* Brand Logo & Name */}
           <a
             href="#home"

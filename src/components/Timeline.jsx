@@ -106,12 +106,15 @@ export default function Timeline() {
 
   const enriched = useMemo(() => {
     const now = new Date();
-    let markedNext = false;
-    return events.map((e) => {
-      const status = getStatus(e.iso, now);
-      const isNext = status === "future" && !markedNext;
-      if (isNext) markedNext = true;
-      return { ...e, status, isNext };
+    const statuses = events.map((event) => getStatus(event.iso, now));
+    const nextIndex = statuses.findIndex((status) => status === "future");
+
+    return events.map((event, index) => {
+      return {
+        ...event,
+        status: statuses[index],
+        isNext: index === nextIndex,
+      };
     });
   }, []);
 
@@ -167,6 +170,18 @@ export default function Timeline() {
 
   return (
     <section className="tl-section" id="timeline" ref={sectionRef}>
+      <img
+        className="tl-dragon tl-dragon--left"
+        src="/NEW PICS/japanese-chinese-dragon-printing-paper-chinese-new-year-red-white-background-dragon-tattoo-design-134502691-removebg-preview.png"
+        alt=""
+        aria-hidden="true"
+      />
+      <img
+        className="tl-dragon tl-dragon--right"
+        src="/NEW PICS/japanese-chinese-dragon-printing-paper-chinese-new-year-red-white-background-dragon-tattoo-design-134502691-removebg-preview.png"
+        alt=""
+        aria-hidden="true"
+      />
       <div className="tl-container">
         {/* Header */}
         <div className="tl-header" ref={headerRef}>

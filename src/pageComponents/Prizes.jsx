@@ -144,6 +144,7 @@ export default function Prizes() {
 
   return (
     <section className="pr-section" id="prizes" ref={sectionRef}>
+      <div className="pr-gate-art" aria-hidden="true" />
       <div className="pr-container">
         {/* Header */}
         <div className="pr-header" ref={headerRef}>

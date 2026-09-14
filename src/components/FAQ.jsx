@@ -9,8 +9,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 const faqs = [
   {
-    q: "What is TEKASHI 2.0?",
-    a: "TEKASHI 2.0 is a premier national technology hackathon powered by Betalabs at IIIT Kottayam. It is a 24-hour intensive crucible where developers, designers, and innovators unite to engineer groundbreaking hardware and software solutions.",
+    q: "What is TECHASHY 2.0?",
+    a: "TECHASHY 2.0 is a premier national technology hackathon powered by Betalabs at IIIT Kottayam. It is a 24-hour intensive crucible where developers, designers, and innovators unite to engineer groundbreaking hardware and software solutions.",
   },
   {
     q: "Who is eligible to participate?",
@@ -18,11 +18,11 @@ const faqs = [
   },
   {
     q: "Is there any registration fee?",
-    a: "Zero. TEKASHI 2.0 is completely free of charge. No registration fees, no hidden costs. Just bring your passion, skills, and laptops.",
+    a: "Zero. TECHASHY 2.0 is completely free of charge. No registration fees, no hidden costs. Just bring your passion, skills, and laptops.",
   },
   {
-    q: "When and where is TEKASHI 2.0 hosted?",
-    a: "TEKASHI 2.0 takes place on March 14–15, 2026, on the permanent campus of the Indian Institute of Information Technology (IIIT), Kottayam, Kerala. Check-in commences at 1:30 PM on March 14, and the hackathon wraps up with the grand award ceremony at 5:30 PM on March 15.",
+    q: "When and where is TECHASHY 2.0 hosted?",
+    a: "TECHASHY 2.0 takes place on October 10, 2026, on the permanent campus of the Indian Institute of Information Technology (IIIT), Kottayam, Kerala. Check-in and the opening ceremony begin at 1:30 PM.",
   },
   {
     q: "What categories and projects can we build?",
@@ -30,7 +30,7 @@ const faqs = [
   },
   {
     q: "What are the prizes and recognition?",
-    a: "A total cash prize pool of ₹80,808 is up for grabs! 1st Place wins ₹40,404 plus internship opportunities at student-founded startups from IIIT Kottayam, 2nd Place wins ₹20,202, 3rd Place wins ₹10,101, and the Special Agentic AI Award winner takes ₹10,101. Every submitting team receives an official TEKASHI 2.0 certificate of participation.",
+    a: "A total cash prize pool of ₹80,808 is up for grabs! 1st Place wins ₹40,404 plus internship opportunities at student-founded startups from IIIT Kottayam, 2nd Place wins ₹20,202, 3rd Place wins ₹10,101, and the Special Agentic AI Award winner takes ₹10,101. Every submitting team receives an official TECHASHY 2.0 certificate of participation.",
   },
   {
     q: "What should participants bring to the venue?",
